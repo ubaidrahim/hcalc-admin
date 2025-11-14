@@ -11,8 +11,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-
-    <title>Demo: Dashboard - Analytics | Materio - Bootstrap Dashboard FREE</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>HCalculator - @yield('title')</title>
 
     <meta name="description" content="" />
 
@@ -35,7 +35,12 @@
 
     <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
-
+    <link rel="stylesheet" href="{{ asset('assets/vendor/preloader/preloader.css') }}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/datatables/datatables.min.css?v=1.1')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/datatables/css/buttons.dataTables.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/toastr/toastr.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/vendor/select2/select2.min.css')}}">
+    <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- Vendors CSS -->
 
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
@@ -43,7 +48,7 @@
     <!-- endbuild -->
 
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
-
+    @stack('styles')
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -59,6 +64,7 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
+        <input type="hidden" id="baseUrl" value="{{ url('/') }}">
         <!-- Menu -->
         @auth
         @include('layouts.sidebar')
@@ -66,7 +72,7 @@
         <!-- / Menu -->
 
         <!-- Layout container -->
-        <div class="layout-page">
+        <div class="layout-page @guest p-0 @endguest">
           @auth
           @include('layouts.header')
           @endauth
@@ -89,28 +95,39 @@
 
     <!-- Core JS -->
 
-    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
 
-    <script src="../assets/vendor/libs/popper/popper.js"></script>
-    <script src="../assets/vendor/js/bootstrap.js"></script>
-    <script src="../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
+    <script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/node-waves/node-waves.js')}}"></script>
 
-    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+    <script src="{{asset('assets/vendor/datatables/datatables.min.js?v=1.1')}}"></script>
+    <script src="{{asset('assets/vendor/datatables/js/dataTables.buttons.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="{{asset('assets/vendor/datatables/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/toastr/toastr.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/select2/select2.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
 
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
 
     <!-- Main JS -->
 
-    <script src="../assets/js/main.js"></script>
+    <script src="{{asset('assets/js/main.js')}}"></script>
+    <script src="{{asset('js/main.js')}}"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/dashboards-analytics.js"></script>
-
+    <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
+    @stack('scripts')
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
   </body>
