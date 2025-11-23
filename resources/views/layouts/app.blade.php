@@ -112,6 +112,7 @@
     <script src="{{asset('assets/vendor/select2/select2.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{{asset('assets/vendor/ckeditor5/build/ckeditor.js')}}"></script>
 
     <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
 

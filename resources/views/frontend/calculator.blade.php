@@ -113,7 +113,7 @@
 
               <div class="mb-3">
                 <label class="form-label">Description</label>
-                <textarea id="catDesc" class="form-control" rows="6"></textarea>
+                <textarea id="catDesc" class="form-control custom-ckeditor" rows="6"></textarea>
               </div>
 
               <div class="mb-3">
@@ -157,9 +157,6 @@
 @endsection
 
 @push('scripts')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
 <script>
 let calculatorData = [];
@@ -190,9 +187,9 @@ $(document).ready(function () {
 
     $('.select2').select2({ width: '100%', dropdownParent: $('#calculatorModal') });
 
-    if (!CKEDITOR.instances.catDesc) {
-        CKEDITOR.replace('catDesc');
-    }
+    // if (!CKEDITOR.instances.catDesc) {
+    //     CKEDITOR.replace('catDesc');
+    // }
 });
 
 document.getElementById('btnAddcalculator').addEventListener('click', function () {
@@ -209,7 +206,7 @@ document.getElementById("calculatorForm").addEventListener("submit", function (e
   e.preventDefault();
 
   const title = cattitle.value.trim();
-  const desc = CKEDITOR.instances.catDesc.getData().trim();
+  const desc = editInstance.catDesc.getData().trim();
   const status = catStatus.value;
   const category = document.getElementById('categoryType').value;
   const subCategory = document.getElementById('subcategoryType').value;
@@ -268,7 +265,7 @@ function resetForm() {
   catStatus.value = '';
   $('#categoryType').val('').trigger('change');
   $('#subcategoryType').val('').trigger('change');
-  CKEDITOR.instances.catDesc.setData('');
+  editorInstance.catDesc.setData('');
 }
 function editcalculator(index) {
   const item = calculatorData[index];
@@ -281,7 +278,7 @@ function editcalculator(index) {
   calculatorModal.show();
 
   $('#calculatorModal').one('shown.bs.modal', function () {
-    CKEDITOR.instances.catDesc.setData(item.desc || '');
+    editorInstance.catDesc.setData(item.desc || '');
     $('#categoryType').val(item.category || '').trigger('change');
     $('#subcategoryType').val(item.subCategory || '').trigger('change');
     cattitle.focus();
