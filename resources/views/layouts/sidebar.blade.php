@@ -82,6 +82,7 @@
                 <div class="badge text-bg-danger rounded-pill ms-auto">5</div>
               </a>
               <ul class="menu-sub">
+
                 <li class="menu-item">
                   <a
                     href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/dashboards-crm.html"
@@ -91,6 +92,24 @@
                     <div class="badge rounded-pill bg-label-primary fs-tiny ms-auto">Pro</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                   <a class="menu-link {{ request()->routeIs('category') ? 'active' : '' }}"
+                    href="{{ route('category') }}">
+                       Category
+                   </a>
+                 </li>
+                  <li class="menu-item">
+                   <a class="menu-link {{ request()->routeIs('sub-category') ? 'active' : '' }}"
+                    href="{{ route('sub-category') }}">
+                       Sub Category
+                   </a>
+                 </li>
+                  <li class="menu-item">
+                   <a class="menu-link {{ request()->routeIs('calculator') ? 'active' : '' }}"
+                    href="{{ route('calculator') }}">
+                       Calculator
+                   </a>
+                 </li>
                 <li class="menu-item active">
                   <a href="index.html" class="menu-link">
                     <div data-i18n="Analytics">Analytics</div>

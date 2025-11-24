@@ -25110,6 +25110,13 @@ body:not(.modal-open) .layout-content-navbar .layout-navbar {
   margin-inline-start: -1.1rem;
 }
 
+ /* CKEditor
+******************************************************************************* */
+.ck-editor__editable_inline {
+  height: 150px;
+  overflow-y: auto;
+}
+
 /* Divider
 ******************************************************************************* */
 .divider {

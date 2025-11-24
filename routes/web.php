@@ -10,4 +10,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/category', function () {
+    return view('frontend.category');
+})->name('category');
+
+Route::get('/sub-category', function () {
+    return view('frontend.sub-category');
+})->name('sub-category');
+Route::get('/calculator', function () {
+    return view('frontend.calculator');
+})->name('calculator');
+
+
 require __DIR__.'/auth.php';
