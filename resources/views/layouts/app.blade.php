@@ -94,7 +94,7 @@
     <!-- / Layout wrapper -->
 
     <!-- Core JS -->
-
+    @include('components._partials.delete_modal')
     <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
 
     <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
