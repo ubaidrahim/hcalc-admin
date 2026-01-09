@@ -1,0 +1,132 @@
+function pageLoader()
+{
+    resetForm();
+    dataTableInstance = $('#tableid').DataTable({
+                    bLengthChange: true,
+                    // remove search box
+                    bFilter: false,
+                    "bDestroy": true,
+                    "lengthChange": true,
+                    responsive: true,
+                    ordering: false,
+                    dom: 'Blrtip',
+                    pageLength: 25,
+                    processing: true,
+                    serverSide: true,
+                    buttons: [{
+                            extend: 'excelHtml5',
+                            text: 'Export CSV',
+                            className: 'exportCsv d-none', // Add a custom class to reference in JS
+                            exportOptions: {
+                              columns: ':not(.no-export)',
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: 'Export PDF',
+                            className: 'exportPdf d-none', // Add a custom class to reference in JS
+                            exportOptions: {
+                              columns: ':not(.no-export)',
+                            }
+                        },
+                    ],
+                    "ajax": {
+                        url: baseurl + '/subcategory/listAll',
+                        // data: {
+                        //   filterAgentId: filterAgentId,
+                        //   filterAgentName: filterAgentName,
+                        //   filterType: filterType,
+                        //   daterange: daterange
+                        // },
+                        // pages: 5 // number of pages to cache
+                        dataSrc: function(json) {
+                            // You can access the totalRecords here
+                            var totalRecords = json.totalRecords;
+                            console.log(json);
+                            $('.count-title').text(
+                                totalRecords); // Assuming you have an element with id 'total-records'
+                            return json.data; // Return the actual data to DataTable
+                        }
+                    },
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'id',
+                            className: 'text-start',
+                            orderable: true
+                        },
+                        {
+                            data: 'title',
+                            name: 'title',
+                            className: 'text-start'
+                        },
+                        // department
+                        {
+                            data: 'description',
+                            name: 'description',
+                            className: 'text-start'
+                        },
+                        {
+                            data: 'cagtegory',
+                            name: 'cagtegory',
+                            className: 'text-start'
+                        },
+                        {
+                            data: 'status',
+                            name: 'status',
+                            className: 'text-start'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            className: 'text-start'
+                        },
+                    ],
+                    lengthMenu: [5, 10, 25, 50, 75, 100]
+                });
+
+}
+
+$('form').on('submit',function(e){
+        e.preventDefault();
+        var form = $(this)[0];
+        var submit_btn = $(this).find('button[type="submit"]');
+        submit_btn.prop('disabled', true);
+        if(!form.checkValidity()){
+            form.reportValidity();
+            submit_btn.prop('disabled',false);
+            return false;
+        }else{
+            // submit_btn.prop('disabled', true);
+            let url = $(this).attr('action');
+            let type = $(this).attr('method');
+            let data = new FormData(form);
+            SendAjaxRequestToServer(type, url, data, '', formSaved, submit_btn, submit_btn);
+            // form.submit();
+        }
+    });
+    function formSaved(response){
+        if(response.success){
+            toastr.success('Operation Successful','Success');
+            $('.modal.show').modal('hide');
+            $('.offcanvas.show').hideOffcanvas();
+            pageLoader();
+        }else{
+            toastr.error(response.message,'Error');
+        }
+    }
+
+function resetForm()
+{
+  formUrl = baseurl + '/subcategories'
+    $('#catTitle').val('');
+    $('#catDesc').val('');
+    $('#catContent').val('');
+    editorInstance.catContent.setData('');
+    $('#categoryForm').attr('action',formUrl);
+}
+
+$('#btnAddCategory').on('click', function()
+{
+    resetForm();
+    $('#categoryModal').modal('show');
+});

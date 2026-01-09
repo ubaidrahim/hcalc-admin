@@ -164,78 +164,14 @@ document.getElementById("calculatorForm").addEventListener("submit", function (e
   calculatorModal.hide();
 });
 
-function renderTable() {
-  table.clear();
-  calculatorData.forEach((item, index) => {
-    const tmpDiv = document.createElement('div');
-    tmpDiv.innerHTML = item.desc || '';
-    let shortDesc = tmpDiv.textContent || tmpDiv.innerText || '';
-    if (shortDesc.length > 80) shortDesc = shortDesc.substring(0, 77) + '...';
-
-    table.row.add([
-      item.id,
-      item.title,
-      item.category || '',
-      item.subCategory || '',
-      shortDesc,
-      item.status,
-      `<button class="btn btn-warning btn-sm" onclick="editcalculator(${index})">Edit</button>
-       <button class="btn btn-danger btn-sm" onclick="deletecalculator(${index})">Delete</button>`
-    ]);
-  });
-  table.draw(false);
-}
-
-function updateCounters() {
-  document.getElementById("countTotal").innerText = calculatorData.length;
-  document.getElementById("countActive").innerText = calculatorData.filter(x => x.status === "Active").length;
-  document.getElementById("countInactive").innerText = calculatorData.filter(x => x.status === "Inactive").length;
-}
-
 function resetForm() {
-  editIndex.value = '';
-  catId.value = '';
-  cattitle.value = '';
-  catStatus.value = '';
+  $('#calTitle').val('');
+  $('#calDesc').val('');
+  $('#calContent').val('');
   $('#categoryType').val('').trigger('change');
   $('#subcategoryType').val('').trigger('change');
-  editorInstance.catDesc.setData('');
+  editorInstance.calContent.setData('');
 }
-function editcalculator(index) {
-  const item = calculatorData[index];
-  catId.value = item.id;
-  cattitle.value = item.title;
-  catStatus.value = item.status;
-  editIndex.value = index;
-
-  document.getElementById('calculatorModalLabel').innerText = 'Edit Calculator';
-  calculatorModal.show();
-
-  $('#calculatorModal').one('shown.bs.modal', function () {
-    editorInstance.catDesc.setData(item.desc || '');
-    $('#categoryType').val(item.category || '').trigger('change');
-    $('#subcategoryType').val(item.subCategory || '').trigger('change');
-    cattitle.focus();
-  });
-}
-
-function deletecalculator(index) {
-  deleteIndex = index;
-  deleteModal.show();
-}
-
-document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
-  if (deleteIndex !== null) {
-    calculatorData.splice(deleteIndex, 1);
-    renderTable();
-    updateCounters();
-    deleteModal.hide();
-    deleteIndex = null;
-  }
-});
-
-window.editcalculator = editcalculator;
-window.deletecalculator = deletecalculator;
 
 </script>
 @endpush

@@ -8,7 +8,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::resource('/calculators', App\Http\Controllers\CalculatorsController::class);
+
+    Route::resource('/categories', App\Http\Controllers\CategoryController::class);
+    Route::get('/category/listAll', [App\Http\Controllers\CategoryController::class,'listAll'])->name('categories.listAll');
+
+    Route::resource('/subcategories', App\Http\Controllers\SubcategoryController::class);
+    Route::get('/subcategory/listAll', [App\Http\Controllers\SubcategoryController::class,'listAll'])->name('subcategories.listAll');
 });
 
 Route::prefix('frontend')->group(function () {

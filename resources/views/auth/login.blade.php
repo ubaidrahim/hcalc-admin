@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Login')
 @push('styles')
 <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-auth.css')}}" />
 @endpush

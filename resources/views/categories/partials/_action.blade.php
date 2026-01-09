@@ -1,0 +1,2 @@
+<button class="btn btn-warning btn-sm editBtn" data-id="{{$query->id}}">Edit</button>
+   <button class="btn btn-danger btn-sm delete_record" data-url="{{route('categories.destroy',[$query->id])}}">Delete</button>

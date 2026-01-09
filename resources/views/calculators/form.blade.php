@@ -8,18 +8,16 @@
             </div>
 
             <div class="modal-body">
-              <input type="hidden" id="editIndex" value="">
-              <input type="hidden" id="catId" value="">
               
               <div class="mb-3">
                 <label class="form-label">Title</label>
-                <input type="text" id="cattitle" class="form-control" required>
+                <input type="text" id="calTitle" name="title" class="form-control" required>
               </div>
 
               <div class="row mb-3 same-height">
                 <div class="col-md-6">
                   <label class="form-label">Category Type</label>
-                  <select id="categoryType" class="form-control select2" required>
+                  <select id="categoryType" name="category_id" class="form-control select2" required>
                     <option value="">Select Category</option>
                     <option value="Technology">Technology</option>
                     <option value="Business">Business</option>
@@ -31,7 +29,7 @@
 
                 <div class="col-md-6">
                   <label class="form-label">Sub-Category Type</label>
-                  <select id="subcategoryType" class="form-control select2" required>
+                  <select id="subcategoryType" name="subcategory_id" class="form-control select2" required>
                     <option value="">Select Sub-Category</option>
                     <option value="Software">Software</option>
                     <option value="Marketing">Marketing</option>
@@ -44,16 +42,11 @@
 
               <div class="mb-3">
                 <label class="form-label">Description</label>
-                <textarea id="catDesc" class="form-control custom-ckeditor" rows="6"></textarea>
+                <textarea id="calDesc" name="description" class="form-control" rows="6"></textarea>
               </div>
-
               <div class="mb-3">
-                <label class="form-label">Status</label>
-                <select id="catStatus" class="form-control" required>
-                  <option value="">Select status</option>
-                  <option value="Active">Active</option>
-                  <option value="Inactive">Inactive</option>
-                </select>
+                <label class="form-label">Content</label>
+                <textarea id="calContent" name="content" class="form-control custom-ckeditor" rows="6"></textarea>
               </div>
             </div>
 
