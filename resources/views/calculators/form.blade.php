@@ -1,7 +1,7 @@
 <div class="modal fade" id="calculatorModal" tabindex="-1" aria-labelledby="calculatorModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-          <form id="calculatorForm">
+          <form id="calculatorForm" method="POST" action="{{route('calculators.store')}}">
             <div class="modal-header">
               <h5 class="modal-title" id="calculatorModalLabel">Add Calculator</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -17,25 +17,19 @@
               <div class="row mb-3 same-height">
                 <div class="col-md-6">
                   <label class="form-label">Category Type</label>
-                  <select id="categoryType" name="category_id" class="form-control select2" required>
-                    <option value="">Select Category</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Business">Business</option>
-                    <option value="Health">Health</option>
-                    <option value="Education">Education</option>
-                    <option value="Finance">Finance</option>
+                  <select id="categoryType" name="category_id" class="form-control select2" required data-placeholder="Select Category" data-parent="#calculatorModal">
+                    @foreach ($categories as $item)
+                        <option value="{{$item->id}}">{{$item->title}}</option>
+                    @endforeach
                   </select>
                 </div>
 
                 <div class="col-md-6">
                   <label class="form-label">Sub-Category Type</label>
-                  <select id="subcategoryType" name="subcategory_id" class="form-control select2" required>
-                    <option value="">Select Sub-Category</option>
-                    <option value="Software">Software</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Fitness">Fitness</option>
-                    <option value="Teaching">Teaching</option>
-                    <option value="Investing">Investing</option>
+                  <select id="subcategoryType" name="subcategory_id" class="form-control select2" required data-placeholder="Choose SubCategory" data-parent="#calculatorModal">
+                    @foreach ($subcategories as $item)
+                        <option value="{{$item->id}}">{{$item->title}}</option>
+                    @endforeach
                   </select>
                 </div>
               </div>

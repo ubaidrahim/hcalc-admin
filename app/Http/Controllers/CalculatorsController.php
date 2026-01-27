@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+use Carbon\Carbon;
+use App\Models\Subcategory;
+use App\Models\Category;
 use App\Models\Calculator;
 
 class CalculatorsController extends Controller
@@ -12,7 +16,9 @@ class CalculatorsController extends Controller
      */
     public function index()
     {
-        return view('calculators.index');
+        $categories = Category::where('status',1)->get();
+        $subcategories = Subcategory::where('status',1)->get();
+        return view('calculators.index',compact('categories','subcategories'));
     }
 
     /**
@@ -94,5 +100,43 @@ class CalculatorsController extends Controller
         $calculator = Calculator::find($id);
         $calculator->delete();
         return response()->json(['success' => true, 'data' => $calculator]);
+    }
+
+    public function listAll(Request $request)
+    {
+        $query = Calculator::query();
+        return DataTables::of($query)
+            ->addIndexColumn()
+            ->editColumn('title', function($query){
+                return $query->title;
+            })
+            ->editColumn('description', function($query){
+                return $query->description;
+            })
+            ->editColumn('category', function($query){
+                return $query->category->title ?? '';
+            })
+            ->editColumn('subcategory', function($query){
+                return $query->subcategory->title ?? '';
+            })
+            ->editColumn('status', function($query){
+                switch ($query->status) {
+                    case 0:
+                        return '<span class="badge badge-warning">Inactive</span>';
+                        break;
+                    case 1:
+                        return '<span class="badge badge-success">Active</span>'; 
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+            })
+            ->editColumn('action', function($query){
+                return view('calculators.partials._action',['query' => $query]);
+            })
+            ->rawColumns(['action','status'])
+            ->make(true);
     }
 }

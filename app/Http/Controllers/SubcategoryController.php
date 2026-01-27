@@ -24,21 +24,7 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'content' => 'required',
-            'category_id' => 'required'
-        ]);
-
-        $category = new Category();
-        $category->title = $request->title;
-        $category->description = $request->description ?? null;
-        $category->content = $request->content ?? null;
-        $category->category_id = $request->category_id;
-        $category->save();
-
-        return response()->json(['success' => true, 'data' => $category]);
+        
     }
 
     /**
@@ -46,7 +32,21 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'content' => 'required',
+            'category_id' => 'required'
+        ]);
+
+        $category = new Subcategory();
+        $category->title = $request->title;
+        $category->description = $request->description ?? null;
+        $category->content = $request->content ?? null;
+        $category->category_id = $request->category_id;
+        $category->save();
+
+        return response()->json(['success' => true, 'data' => $category]);
     }
 
     /**
@@ -107,7 +107,7 @@ class SubcategoryController extends Controller
                 return $query->description;
             })
             ->editColumn('category', function($query){
-                return $query->category->title;
+                return $query->category->title ?? '';
             })
             ->editColumn('status', function($query){
                 switch ($query->status) {
@@ -124,7 +124,7 @@ class SubcategoryController extends Controller
                 }
             })
             ->editColumn('action', function($query){
-                return view('categories.partials._action',['query' => $query]);
+                return view('subcategories.partials._action',['query' => $query]);
             })
             ->rawColumns(['action','status'])
             ->make(true);

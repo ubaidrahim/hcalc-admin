@@ -52,7 +52,7 @@
     </div>
 
     <div class="table-responsive">
-      <table class="table" id="calculatorTable">
+      <table class="table" id="tableid">
         <thead>
           <tr>
             <th>ID</th>
@@ -91,87 +91,5 @@
 @endsection
 
 @push('scripts')
-
-<script>
-let calculatorData = [];
-let deleteIndex = null;
-
-const calculatorModal = new bootstrap.Modal(document.getElementById('calculatorModal'));
-const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-
-const catId = document.getElementById("catId");
-const cattitle = document.getElementById("cattitle");
-const catStatus = document.getElementById("catStatus");
-const editIndex = document.getElementById("editIndex");
-
-let table;
-
-$(document).ready(function () {
-    table = $('#calculatorTable').DataTable({
-        dom: '<"row mb-3"<"col-md-6 d-flex align-items-center"f><"col-md-6 text-end"B>>' +
-             'rt' +
-             '<"row mt-3"<"col-md-6"i><"col-md-6"p>>',
-        buttons: [
-            { extend: 'csv', text: 'CSV' },
-            { extend: 'excel', text: 'Excel' },
-            { extend: 'pdf', text: 'PDF' }
-        ],
-        language: { search: "", searchPlaceholder: "Search calculator..." }
-    });
-
-    $('.select2').select2({ width: '100%', dropdownParent: $('#calculatorModal') });
-
-    // if (!CKEDITOR.instances.catDesc) {
-    //     CKEDITOR.replace('catDesc');
-    // }
-});
-
-document.getElementById('btnAddcalculator').addEventListener('click', function () {
-  resetForm();
-  document.getElementById('calculatorModalLabel').innerText = 'Add Calculator';
-  calculatorModal.show();
-});
-
-$('#calculatorModal').on('hidden.bs.modal', function () {
-    resetForm();
-});
-
-document.getElementById("calculatorForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const title = cattitle.value.trim();
-  const desc = editInstance.catDesc.getData().trim();
-  const status = catStatus.value;
-  const category = document.getElementById('categoryType').value;
-  const subCategory = document.getElementById('subcategoryType').value;
-  const editIdx = editIndex.value;
-
-  if (!title || !status || !category || !subCategory) {
-    alert('Please fill in all required fields.');
-    return;
-  }
-
-  if (editIdx === "") {
-    const newId = calculatorData.length > 0 ? calculatorData[calculatorData.length - 1].id + 1 : 1;
-    calculatorData.push({ id: newId, title, desc, status, category, subCategory });
-  } else {
-    calculatorData[editIdx] = { id: parseInt(catId.value), title, desc, status, category, subCategory };
-    editIndex.value = "";
-  }
-
-  renderTable();
-  updateCounters();
-  calculatorModal.hide();
-});
-
-function resetForm() {
-  $('#calTitle').val('');
-  $('#calDesc').val('');
-  $('#calContent').val('');
-  $('#categoryType').val('').trigger('change');
-  $('#subcategoryType').val('').trigger('change');
-  editorInstance.calContent.setData('');
-}
-
-</script>
+<script src="{{asset('js/localjs/calculators.js')}}"></script>\
 @endpush

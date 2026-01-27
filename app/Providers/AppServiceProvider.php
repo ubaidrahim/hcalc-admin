@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
+use App\Traits\ContentTrait;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Blade::directive('getHomeContent', function ($key) {
+        return "<?php echo (new class {
+            use \\App\\Traits\\ContentTrait;
+            })->getHomeContent($key); ?>";
+        });
     }
 }

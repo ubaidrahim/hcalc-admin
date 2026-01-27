@@ -31,7 +31,7 @@ function pageLoader()
                         },
                     ],
                     "ajax": {
-                        url: baseurl + '/subcategory/listAll',
+                        url: baseurl + '/calculator/listAll',
                         // data: {
                         //   filterAgentId: filterAgentId,
                         //   filterAgentName: filterAgentName,
@@ -68,6 +68,11 @@ function pageLoader()
                         {
                             data: 'category',
                             name: 'category',
+                            className: 'text-start'
+                        },
+                        {
+                            data: 'subcategory',
+                            name: 'subcategory',
                             className: 'text-start'
                         },
                         {
@@ -117,17 +122,19 @@ $('form').on('submit',function(e){
 
 function resetForm()
 {
-  formUrl = baseurl + '/subcategories'
-    $('#catTitle').val('');
-    $('#catDesc').val('');
-    $('#catContent').val('');
-    $('#categoryType').val('');
-    editorInstance.catContent.setData('');
+    formUrl = baseurl + '/calculators';
+  $('#calTitle').val('');
+  $('#calDesc').val('');
+  $('#calContent').val('');
+  $('#categoryType').val('');
+  $('#subcategoryType').val('');
+  editorInstance.calContent.setData('');
+  refreshSelect2();
     $('#categoryForm').attr('action',formUrl);
 }
 
-$('#btnAddCategory').on('click', function()
+$('#btnAddcalculator').on('click', function()
 {
     resetForm();
-    $('#categoryModal').modal('show');
+    $('#calculatorModal').modal('show');
 });

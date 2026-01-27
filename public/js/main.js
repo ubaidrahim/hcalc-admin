@@ -365,8 +365,24 @@ $.fn.hideOffcanvas = function () {
     return this; // Maintain jQuery chaining
 };
 
-$('.select2').select2({
-    placeholder: $(this).attr('data-placeholder')
+$('.select2').each(function () {
+    let $el = $(this);
+    let parentSelector = $el.data('parent');
+    let options = {
+        placeholder: $el.data('placeholder'),
+        width: '100%'
+    };
+
+    // If data-parent exists and element is found
+    if (parentSelector && $(parentSelector).length) {
+        options.dropdownParent = $(parentSelector);
+    }
+    // Else if inside a modal, auto-detect
+    else if ($el.closest('.modal').length) {
+        options.dropdownParent = $el.closest('.modal');
+    }
+
+    $el.select2(options);
 });
 
 function refreshSelect2(){
