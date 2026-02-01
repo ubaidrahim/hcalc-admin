@@ -13,9 +13,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/calculator/listAll', [App\Http\Controllers\CalculatorsController::class,'listAll'])->name('calculators.listAll');
 
     Route::resource('/categories', App\Http\Controllers\CategoryController::class);
+    Route::post('/categories/{id}', [App\Http\Controllers\CategoryController::class,'update'])->name('categories.update');
     Route::get('/category/listAll', [App\Http\Controllers\CategoryController::class,'listAll'])->name('categories.listAll');
 
     Route::resource('/subcategories', App\Http\Controllers\SubcategoryController::class);
+    Route::post('/subcategories/{id}', [App\Http\Controllers\SubcategoryController::class,'update'])->name('subcategories.update');
     Route::get('/subcategory/listAll', [App\Http\Controllers\SubcategoryController::class,'listAll'])->name('subcategories.listAll');
     Route::get('/icons/{set}', [App\Http\Controllers\AjaxController::class, 'displayIcons']);
 

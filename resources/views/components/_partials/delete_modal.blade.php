@@ -8,7 +8,7 @@
           <div class="modal-body">Are you sure you want to delete this?</div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <form id="confirm_delete_form">
+            <form id="confirm_delete_form" method="POST">
             @method('delete')
             <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
             </form>

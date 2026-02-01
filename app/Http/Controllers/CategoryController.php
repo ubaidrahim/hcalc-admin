@@ -32,14 +32,18 @@ class CategoryController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'description' => 'required',
             'content' => 'required',
+            'slug' => 'required|string|max:30|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:categories,slug',
         ]);
 
         $category = new Category();
         $category->title = $request->title;
         $category->description = $request->description ?? null;
         $category->content = $request->content ?? null;
+        $category->slug = $request->slug ?? null;
+        $category->meta_title = $request->meta_title ?? null;
+        $category->meta_description = $request->meta_description ?? null;
+        $category->meta_keywords = $request->meta_keywords ?? null;
         $category->save();
 
         return response()->json(['success' => true, 'data' => $category]);
@@ -69,14 +73,18 @@ class CategoryController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'description' => 'required',
             'content' => 'required',
+            'slug' => 'required|string|max:30|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:categories,slug,'.$id,
         ]);
 
         $category = Category::find($id);
         $category->title = $request->title;
         $category->description = $request->description ?? null;
         $category->content = $request->content ?? null;
+        $category->slug = $request->slug ?? null;
+        $category->meta_title = $request->meta_title ?? null;
+        $category->meta_description = $request->meta_description ?? null;
+        $category->meta_keywords = $request->meta_keywords ?? null;
         $category->save();
         return response()->json(['success' => true, 'data' => $category]);
     }

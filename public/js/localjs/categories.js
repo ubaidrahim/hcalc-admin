@@ -113,9 +113,13 @@ $('form').on('submit',function(e){
 function resetForm()
 {
   formUrl = baseurl + '/categories'
-    $('#catTitle').val('');
+    $('#cattitle').val('');
     $('#catDesc').val('');
     $('#catContent').val('');
+    $('#catslug').val('');
+    $('#metatitle').val('');
+    $('#metakeywords').val('');
+    $('#metadescription').val('');
     editorInstance.catContent.setData('');
     $('#categoryForm').attr('action',formUrl);
 }
@@ -125,3 +129,46 @@ $('#btnAddCategory').on('click', function()
     resetForm();
     $('#categoryModal').modal('show');
 });
+
+function slugify(text) {
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')        // spaces → -
+        .replace(/[^\w\-]+/g, '')    // remove non-word chars
+        .replace(/\-\-+/g, '-')      // multiple - → single -
+        .replace(/^-+/, '')          // trim - from start
+        .replace(/-+$/, '');         // trim - from end
+}
+
+$(document).on('keyup blur', '#cattitle', function () {
+    const title = $(this).val();
+    $('#catslug').val(slugify(title));
+});
+$(document).on('click','.editBtn',function(){
+    var id = $(this).attr('data-id');
+    var type = 'get';
+    var url = baseurl + '/categories/'+id;
+    var data = '';
+    SendAjaxRequestToServer(type, url, data, '', function(response){
+        if(response.success)
+        {
+            var formUrl = baseurl + '/categories/' + id ;
+            $('#cattitle').val(response.data.title);
+            $('#catDesc').val(response.data.description);
+            $('#catslug').val(response.data.slug);
+            $('#metatitle').val(response.data.meta_title);
+            $('#metakeywords').val(response.data.meta_keywords);
+            $('#metadescription').val(response.data.meta_description);
+            editorInstance.catContent.setData(response.data.content);
+            $('#categoryForm').attr('action', formUrl);
+            $('#categoryModal').modal('show');
+            
+        }else
+        {
+            toastr.error('Not Found!','Error');
+        }
+    }, '', '');
+});
+
