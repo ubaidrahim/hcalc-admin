@@ -10,6 +10,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('/calculators', App\Http\Controllers\CalculatorsController::class);
+    Route::post('/calculators/{id}', [App\Http\Controllers\CalculatorsController::class,'update'])->name('calculators.update');
     Route::get('/calculator/listAll', [App\Http\Controllers\CalculatorsController::class,'listAll'])->name('calculators.listAll');
 
     Route::resource('/categories', App\Http\Controllers\CategoryController::class);
@@ -19,6 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/subcategories', App\Http\Controllers\SubcategoryController::class);
     Route::post('/subcategories/{id}', [App\Http\Controllers\SubcategoryController::class,'update'])->name('subcategories.update');
     Route::get('/subcategory/listAll', [App\Http\Controllers\SubcategoryController::class,'listAll'])->name('subcategories.listAll');
+    
+    Route::get('/subcategories/getByCategory/{categoryId}', [App\Http\Controllers\SubcategoryController::class,'getByCategory'])->name('subcategories.getByCategory');
     Route::get('/icons/{set}', [App\Http\Controllers\AjaxController::class, 'displayIcons']);
 
     Route::group(['prefix' => 'content', 'as' => 'content.'],function () {

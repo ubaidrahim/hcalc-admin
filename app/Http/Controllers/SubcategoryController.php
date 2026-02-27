@@ -129,4 +129,11 @@ class SubcategoryController extends Controller
             ->rawColumns(['action','status'])
             ->make(true);
     }
+
+    function getByCategory(Request $request)
+    {
+        $categoryId = $request->category_id;
+        $subcategories = Subcategory::where('category_id',$categoryId)->where('status',1)->get();
+        return response()->json(['success' => true, 'data' => $subcategories]);
+    }
 }

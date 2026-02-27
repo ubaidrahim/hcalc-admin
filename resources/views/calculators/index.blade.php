@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Calculators')
-@section('content')
-
+@push('styles')
 <style>
   .card p { margin:0; }
 
@@ -17,8 +16,13 @@
   .same-height .select2-container--default .select2-selection--single .select2-selection__arrow {
       height: 38px !important;
   }
+  .list-group-item {
+    cursor: pointer;
+    flex: 0 0 50%;
+  }
 </style>
-
+@endpush
+@section('content')
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
 

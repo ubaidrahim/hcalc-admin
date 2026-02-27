@@ -15,3 +15,12 @@ Route::prefix('categories')->group(function(){
     Route::get('/fetch/{slug}',[App\Http\Controllers\Api\CategoriesController::class,'show']);
     Route::get('/meta/{slug}',[App\Http\Controllers\Api\CategoriesController::class,'meta']);
 });
+Route::prefix('calculator')->group(function(){
+    Route::get('/',[App\Http\Controllers\Api\CalculatorsController::class,'index']);
+    Route::get('/fetch/{slug}',[App\Http\Controllers\Api\CalculatorsController::class,'show']);
+    Route::get('/meta/{slug}',[App\Http\Controllers\Api\CalculatorsController::class,'meta']);
+});
+Route::prefix('visitors')->group(function(){
+    Route::post('/init',[App\Http\Controllers\Api\VisitorsController::class,'init']);
+    Route::post('/track',[App\Http\Controllers\Api\VisitorsController::class,'store']);
+});

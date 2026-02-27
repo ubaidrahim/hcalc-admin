@@ -130,18 +130,6 @@ $('#btnAddCategory').on('click', function()
     $('#categoryModal').modal('show');
 });
 
-function slugify(text) {
-    return text
-        .toString()
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, '-')        // spaces → -
-        .replace(/[^\w\-]+/g, '')    // remove non-word chars
-        .replace(/\-\-+/g, '-')      // multiple - → single -
-        .replace(/^-+/, '')          // trim - from start
-        .replace(/-+$/, '');         // trim - from end
-}
-
 $(document).on('keyup blur', '#cattitle', function () {
     const title = $(this).val();
     $('#catslug').val(slugify(title));

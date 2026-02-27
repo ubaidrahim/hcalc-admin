@@ -11,7 +11,16 @@ class CategoriesController extends Controller
     public function index()
     {
         $list = Category::where('status',1)->get();
-        return response()->json(['success' => true, 'data' => $list]);
+        $categories = $list->map(function($cat){
+            $catArray = [
+                'title' => $cat->title,
+                'description' => $cat->description ?? '',
+                'slug' => $cat->slug && $cat->slug != '' ? $cat->slug : 'not-found',
+                'tags' => $cat->meta_keywords && $cat->meta_keywords != '' ? explode(',', $cat->meta_keywords) : []
+            ];
+            return $catArray;
+        });
+        return response()->json(['success' => true, 'data' => $categories]);
     }
 
     public function meta($slug)
@@ -31,6 +40,24 @@ class CategoriesController extends Controller
     }
     public function show($slug)
     {
-        $fetch = Category::where('slug',$slug)->first();
+        $fetch = Category::where('slug',$slug)->with('calculators')->first();
+        if($fetch)
+        {
+            $data = [
+                'title' => $fetch->title,
+                'description' => $fetch->description ?? '',
+                'slug' => $fetch->slug && $fetch->slug != '' ? $fetch->slug : 'not-found',
+                'calculators' => $fetch->calculators->map(function($calculator){
+                    return [
+                        'title' => $calculator->title,
+                        'description' => $calculator->description ?? '',
+                        'slug' => $calculator->slug && $calculator->slug != '' ? $calculator->slug : 'not-found',
+                        'tags' => $calculator->meta_keywords && $calculator->meta_keywords != '' ? explode(',', $calculator->meta_keywords) : []    
+                    ];
+                })
+            ];
+            return response()->json(['success' => true, 'data' => $data]);
+        }
+        return response()->json(['success' => false, 'data' => []]);
     }
 }

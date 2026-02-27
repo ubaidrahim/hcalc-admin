@@ -503,3 +503,15 @@ $('#daterange').daterangepicker({
         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
     }
 });
+
+function slugify(text) {
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')        // spaces → -
+        .replace(/[^\w\-]+/g, '')    // remove non-word chars
+        .replace(/\-\-+/g, '-')      // multiple - → single -
+        .replace(/^-+/, '')          // trim - from start
+        .replace(/-+$/, '');         // trim - from end
+}

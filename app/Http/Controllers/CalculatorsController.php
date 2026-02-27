@@ -38,15 +38,20 @@ class CalculatorsController extends Controller
             'title' => 'required',
             'content' => 'required',
             'category_id' => 'required',
-            'subcategory_id' => 'required',
+            'slug' => 'required|string|max:30|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:calculators,slug',
         ]);
 
         $calculator = new Calculator();
         $calculator->title = $request->title;
+        $calculator->slug = $request->slug ?? null;
+        $calculator->meta_title = $request->meta_title ?? null;
+        $calculator->meta_description = $request->meta_description ?? null;
+        $calculator->meta_keywords = $request->meta_keywords ?? null;
         $calculator->description = $request->description ?? null;
+        $calculator->related_calcs = $request->related_calcs && is_array($request->related_calcs) ? json_encode($request->related_calcs) : json_encode(array());
         $calculator->content = $request->content ?? null;
         $calculator->category_id = $request->category_id;
-        $calculator->subcategory_id = $request->subcategory_id;
+        $calculator->subcategory_id = $request->subcategory_id ?? 0;
         $calculator->save();
 
         return response()->json(['success' => true, 'data' => $calculator]);
@@ -66,7 +71,8 @@ class CalculatorsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $calculators = Calculator::where('id','<>',$id)->get();
+        return response()->json(['success' => true, 'data' => $calculators]);
     }
 
     /**
@@ -79,15 +85,19 @@ class CalculatorsController extends Controller
             'description' => 'required',
             'content' => 'required',
             'category_id' => 'required',
-            'subcategory_id' => 'required',
+            'slug' => 'required|string|max:30|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:calculators,slug,'.$id,
         ]);
 
         $calculator = Calculator::find($id);
         $calculator->title = $request->title;
+        $calculator->slug = $request->slug ?? null;
+        $calculator->meta_title = $request->meta_title ?? null;
+        $calculator->meta_description = $request->meta_description ?? null;
+        $calculator->meta_keywords = $request->meta_keywords ?? null;
         $calculator->description = $request->description ?? null;
         $calculator->content = $request->content ?? null;
         $calculator->category_id = $request->category_id;
-        $calculator->subcategory_id = $request->subcategory_id;
+        $calculator->subcategory_id = $request->subcategory_id ?? 0;
         $calculator->save();
         return response()->json(['success' => true, 'data' => $calculator]);
     }
