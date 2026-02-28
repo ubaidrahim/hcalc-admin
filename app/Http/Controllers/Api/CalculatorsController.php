@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Calculator;
-
+use App\Models\Calculation;
+use Illuminate\Support\Facades\Crypt; 
 class CalculatorsController extends Controller
 {
 
@@ -62,5 +63,39 @@ class CalculatorsController extends Controller
             return response()->json(['success' => true, 'data' => $data]);
         }
         return response()->json(['success' => false, 'data' => []]);
+    }
+
+    public function recordCalculation(Request $request)
+    {
+        $data = $request->validate([
+            'inputs' => ['required','array'],
+            'result' => ['required','array'],
+            'calculator_id' => ['required','exists:calculators,id'],
+            'visitor_id' => ['nullable']
+        ]);
+
+        $calculation = Calculation::create($data);
+        if($calculation)
+        {
+            $uuid = $calculation->public_id;
+            return response()->json(['success' => true, 'data' => ['id' => $calculation->id, 'uuid' => $uuid] ]);
+        }
+        return response()->json(['success' => false]);
+    }
+
+    public function fetchCalculation($uuid)
+    {
+        $calculation = Calculation::where('public_id',$uuid)->first();
+        if($calculation)
+        {
+            $data = [
+                'id' => $calculation->id,
+                'uuid' => $calculation->public_id,
+                'inputs' => $calculation->inputs,
+                'result' => $calculation->result
+            ];
+            return response()->json(['success' => true, 'data' => $data]);
+        }
+        return response()->json(['success' => false]);
     }
 }
