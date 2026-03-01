@@ -193,13 +193,17 @@ function populateRelatedCalculators(calculatorId)
         console.log(response);
         if(response.success)
         {
+            let relatedArr = response.related;
             $('#relatedCalculators').html('');
             if(response.data.length > 0)
             {
                 response.data.forEach(function(item){
+                    var checked = relatedArr.some(function(rel) {
+                        return rel == item.id;
+                    }) ? 'checked' : '';
                     $('#relatedCalculators').append(`<label class="list-group-item">
                             <span class="form-check mb-0">
-                              <input class="form-check-input me-4" type="checkbox" name="related_calcs[]" value="${item.id}" />
+                              <input class="form-check-input me-4" type="checkbox" ${checked} name="related_calcs[]" value="${item.id}" />
                               ${item.title}
                             </span>
                           </label>`);

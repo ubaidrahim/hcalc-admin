@@ -71,8 +71,10 @@ class CalculatorsController extends Controller
      */
     public function edit(string $id)
     {
-        $calculators = Calculator::where('id','<>',$id)->get();
-        return response()->json(['success' => true, 'data' => $calculators]);
+        $calculators = Calculator::where('id','<>',$id)->where('status',1)->get();
+        $calc = Calculator::find($id);
+        $related = $calc && $calc->related_calcs && is_string($calc->related_calcs) ? json_decode($calc->related_calcs) : [];
+        return response()->json(['success' => true, 'data' => $calculators, 'related' => $related]);
     }
 
     /**
