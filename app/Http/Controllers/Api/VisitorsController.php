@@ -27,12 +27,29 @@ class VisitorsController extends Controller
             }
         }
 
+        try {
+            $location = geoip(request()->ip());
+
+            $country = $location->country;
+            $city = $location->city;
+
+        } catch (\Exception $e) {
+
+            $country = null;
+            $city = null;
+
+            // Optional: log error
+            \Log::warning('GeoIP lookup failed: ' . $e->getMessage());
+        }
+
         return DB::transaction(function () use ($request) {
 
             $visitor = Visitor::create([
                 'visitor_uuid' => (string) Str::uuid(),
                 'ip' => $request->ip(),
                 'user_agent' => $request->userAgent(),
+                'city' => $city,
+                'country' => $country,
             ]);
 
             return response()->json([

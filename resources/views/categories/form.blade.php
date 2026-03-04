@@ -28,10 +28,27 @@
                     <label class="form-label">Meta Keywords (Comma Seperated)</label>
                     <input type="text" id="metakeywords" name="meta_keywords" class="form-control">
                   </div>
-                <div class="col-md-12 mb-3">
+                <div class="col-md-6 mb-3">
                     <label class="form-label">Meta Description</label>
                     <input type="text" id="metadescription" name="meta_description" class="form-control">
                   </div>
+                <div class="col-md-6 mb-3">
+                <label class="form-label">Icon</label>
+                  <div class="btn-group w-100" id="catIcon">
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary form-control dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <span id="selectedIcon"><i class="icon-base ri ri-menu-line me-1"></i></span>
+                      <span class="me-auto"> Select Icon </span>
+                    </button>
+                    <div class="dropdown-menu iconMenu">
+                      @include('components.icons')
+                    </div>
+                    <input type="hidden" id="iconInput" name="icon" value="">
+                  </div>
+                </div>
                 <div class="col-md-12 mb-3">
                   <label class="form-label">Brief Description</label>
                   <textarea id="catDesc" class="form-control" name="description" rows="6"></textarea>

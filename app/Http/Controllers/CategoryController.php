@@ -38,6 +38,8 @@ class CategoryController extends Controller
 
         $category = new Category();
         $category->title = $request->title;
+        $category->icon = $request->icon ?? '';
+        $category->icon = $request->icon ?? '';
         $category->description = $request->description ?? null;
         $category->content = $request->content ?? null;
         $category->slug = $request->slug ?? null;
@@ -79,6 +81,7 @@ class CategoryController extends Controller
 
         $category = Category::find($id);
         $category->title = $request->title;
+        $category->icon = $request->icon ?? '';
         $category->description = $request->description ?? null;
         $category->content = $request->content ?? null;
         $category->slug = $request->slug ?? null;
@@ -105,7 +108,8 @@ class CategoryController extends Controller
         return DataTables::of($query)
             ->addIndexColumn()
             ->editColumn('title', function($query){
-                return $query->title;
+                $icon = $query->icon && $query->icon != '' ? '<i class="'.$query->icon.'"></i> ' : '';
+                return $icon.$query->title;
             })
             ->editColumn('description', function($query){
                 return $query->description;
@@ -127,7 +131,7 @@ class CategoryController extends Controller
             ->editColumn('action', function($query){
                 return view('categories.partials._action',['query' => $query]);
             })
-            ->rawColumns(['action','status'])
+            ->rawColumns(['title','action','status'])
             ->make(true);
     }
 }

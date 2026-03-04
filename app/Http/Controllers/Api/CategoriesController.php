@@ -15,6 +15,7 @@ class CategoriesController extends Controller
             $catArray = [
                 'title' => $cat->title,
                 'description' => $cat->description ?? '',
+                'icon' => $cat->icon ?? '',
                 'slug' => $cat->slug && $cat->slug != '' ? $cat->slug : 'not-found',
                 'tags' => $cat->meta_keywords && $cat->meta_keywords != '' ? explode(',', $cat->meta_keywords) : []
             ];

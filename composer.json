@@ -8,10 +8,12 @@
     "require": {
         "php": "^8.2",
         "brian2694/laravel-toastr": "^5.59",
+        "geoip2/geoip2": "^3.3",
         "laravel/breeze": "^2.3",
         "laravel/framework": "^11.31",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "torann/geoip": "^3.0",
         "yajra/laravel-datatables-oracle": "^11.1"
     },
     "require-dev": {

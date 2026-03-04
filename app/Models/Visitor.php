@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Visitor extends Model
 {
-    protected $fillable = ['ip', 'user_agent', 'visitor_uuid'];
+    protected $fillable = [
+        'ip', 
+        'user_agent', 
+        'visitor_uuid',
+        'city',
+        'country'
+    ];
 }

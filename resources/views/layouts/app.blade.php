@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/datatables/datatables.min.css?v=1.1')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/datatables/css/buttons.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/toastr/toastr.min.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{asset('assets/vendor/select2/select2.min.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- Vendors CSS -->

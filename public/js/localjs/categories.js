@@ -120,6 +120,8 @@ function resetForm()
     $('#metatitle').val('');
     $('#metakeywords').val('');
     $('#metadescription').val('');
+    $('#selectedIcon i').attr('class','');
+    $('#iconInput').val('');
     editorInstance.catContent.setData('');
     $('#categoryForm').attr('action',formUrl);
 }
@@ -149,6 +151,8 @@ $(document).on('click','.editBtn',function(){
             $('#metatitle').val(response.data.meta_title);
             $('#metakeywords').val(response.data.meta_keywords);
             $('#metadescription').val(response.data.meta_description);
+            $('#selectedIcon i').attr('class',response?.data?.icon || '');
+            $('#iconInput').val(response?.data?.icon || '');
             editorInstance.catContent.setData(response.data.content);
             $('#categoryForm').attr('action', formUrl);
             $('#categoryModal').modal('show');
@@ -158,5 +162,11 @@ $(document).on('click','.editBtn',function(){
             toastr.error('Not Found!','Error');
         }
     }, '', '');
+});
+
+$(document).on('click','.iconMenu > i',function(){
+    let selectClass = $(this).attr('class');
+    $('#selectedIcon i').attr('class',selectClass);
+    $('#iconInput').val(selectClass);
 });
 

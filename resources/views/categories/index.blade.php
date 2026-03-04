@@ -5,6 +5,15 @@
 <style>
   .card p { margin:0; }
 
+  .iconMenu i
+  {
+    cursor:pointer;
+  }
+  .iconMenu i:hover
+  {
+    color:var(--bs-primary);
+  }
+
 </style>
 @endpush
 @section('content')

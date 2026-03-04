@@ -16,6 +16,7 @@ class HomeController extends Controller
         $categories = $categories->map(function($cat){
             $catArray = [
                 'title' => $cat->title,
+                'icon' => $cat->icon ?? '',
                 'description' => $cat->description ?? '',
                 'slug' => $cat->slug && $cat->slug != '' ? $cat->slug : 'not-found' 
             ];
