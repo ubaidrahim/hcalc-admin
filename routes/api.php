@@ -19,6 +19,7 @@ Route::prefix('calculator')->group(function(){
     Route::get('/',[App\Http\Controllers\Api\CalculatorsController::class,'index']);
     Route::get('/fetch/{slug}',[App\Http\Controllers\Api\CalculatorsController::class,'show']);
     Route::get('/meta/{slug}',[App\Http\Controllers\Api\CalculatorsController::class,'meta']);
+    Route::post('/search',[App\Http\Controllers\Api\CalculatorsController::class,'search']);
 });
 Route::prefix('visitors')->group(function(){
     Route::post('/init',[App\Http\Controllers\Api\VisitorsController::class,'init']);

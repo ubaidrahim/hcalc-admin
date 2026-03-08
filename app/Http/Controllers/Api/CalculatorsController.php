@@ -98,4 +98,20 @@ class CalculatorsController extends Controller
         }
         return response()->json(['success' => false]);
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->search ?? '';
+        $searchParam = '%'.$search.'%';
+        $calculators = Calculator::where('title','like',$searchParam)->get();
+        $result = $calculators->map(function($calculator) {
+            return [
+                        'title' => $calculator->title,
+                        'description' => $calculator->description ?? '',
+                        'slug' => $calculator->slug && $calculator->slug != '' ? $calculator->slug : 'not-found',
+                        'tags' => $calculator->meta_keywords && $calculator->meta_keywords != '' ? explode(',', $calculator->meta_keywords) : []    
+                    ];
+        });
+        return response()->json(['success' => true, 'data' => $result]);
+    }
 }
