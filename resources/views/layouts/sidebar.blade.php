@@ -17,7 +17,7 @@
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
-            <li class="menu-item">
+            <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
               <a
                 href="{{ route('dashboard') }}"
                 class="menu-link">
@@ -30,23 +30,23 @@
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon icon-base ri ri-home-smile-line"></i>
                 <div data-i18n="Calculators">Calculators</div>
-                <div class="badge text-bg-danger rounded-pill ms-auto">5</div>
+                <div class="badge text-bg-danger rounded-pill ms-auto">{{\App\Models\Calculator::where('status',1)->count()}}</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
-                   <a class="menu-link {{ request()->routeIs('categories.index') ? 'active' : '' }}"
+                <li class="menu-item {{ request()->routeIs('categories.index') ? 'active' : '' }}">
+                   <a class="menu-link"
                     href="{{ route('categories.index') }}">
                        Category
                    </a>
                  </li>
-                  <li class="menu-item">
-                   <a class="menu-link {{ request()->routeIs('subcategories.index') ? 'active' : '' }}"
+                  <li class="menu-item {{ request()->routeIs('subcategories.index') ? 'active' : '' }}">
+                   <a class="menu-link"
                     href="{{ route('subcategories.index') }}">
                        Sub Category
                    </a>
                  </li>
-                  <li class="menu-item">
-                   <a class="menu-link {{ request()->routeIs('calculators.index') ? 'active' : '' }}"
+                  <li class="menu-item {{ request()->routeIs('calculators.index') ? 'active' : '' }}">
+                   <a class="menu-link"
                     href="{{ route('calculators.index') }}">
                        Calculators
                    </a>
@@ -59,10 +59,30 @@
                 <div data-i18n="Calculators">Content</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
-                   <a class="menu-link {{ request()->routeIs('content.home.index') ? 'active' : '' }}"
+                <li class="menu-item {{ request()->routeIs('content.home.index') ? 'active' : '' }}">
+                   <a class="menu-link"
                     href="{{ route('content.home.index') }}">
                        Homepage
+                   </a>
+                 </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon icon-base ri ri-home-smile-line"></i>
+                <div data-i18n="Calculators">Website Settings</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                   <a class="menu-link"
+                    href="#">
+                       General Settings
+                   </a>
+                 </li>
+                <li class="menu-item {{ request()->routeIs('settings.menu.index') ? 'active' : '' }}">
+                   <a class="menu-link"
+                    href="{{ route('settings.menu.index') }}">
+                       Menu Settings
                    </a>
                  </li>
               </ul>

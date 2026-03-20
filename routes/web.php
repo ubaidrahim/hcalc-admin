@@ -22,12 +22,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/subcategory/listAll', [App\Http\Controllers\SubcategoryController::class,'listAll'])->name('subcategories.listAll');
     
     Route::get('/subcategories/getByCategory/{categoryId}', [App\Http\Controllers\SubcategoryController::class,'getByCategory'])->name('subcategories.getByCategory');
-    Route::get('/icons/{set}', [App\Http\Controllers\AjaxController::class, 'displayIcons']);
 
     Route::group(['prefix' => 'content', 'as' => 'content.'],function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
         Route::post('/home', [App\Http\Controllers\HomeController::class, 'store'])->name('home.store');
     });
+    Route::group(['prefix' => 'settings', 'as' => 'settings.'],function () {
+        Route::group(['prefix' => 'menu', 'as' => 'menu.'],function () {
+            Route::get('/{menu?}', [App\Http\Controllers\MenuSettingsController::class, 'index'])->name('index');
+            Route::post('/add-item', [App\Http\Controllers\MenuSettingsController::class, 'addItem'])->name('add');
+            Route::post('/', [App\Http\Controllers\MenuSettingsController::class, 'store'])->name('store');
+
+        });
+    });
+
+    Route::get('status-enable-disable', [App\Http\Controllers\AjaxController::class, 'statusEnableDisable'])->name('statusEnableDisable');
+    Route::post('ckeditor/upload', [App\Http\Controllers\AjaxController::class, 'ckeditor_img'])->name('ckeditor.upload');
 });
 
 Route::prefix('frontend')->group(function () {

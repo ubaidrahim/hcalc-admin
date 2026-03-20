@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/preloader/preloader.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/jquery-ui-1.14.2.custom/jquery-ui.min.css') }}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/datatables/datatables.min.css?v=1.1')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/datatables/css/buttons.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendor/toastr/toastr.min.css')}}">
@@ -66,6 +67,7 @@
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <input type="hidden" id="baseUrl" value="{{ url('/') }}">
+        <input type="hidden" name="table_name" id="table_name" value="@yield('table')">
         <!-- Menu -->
         @auth
         @include('layouts.sidebar')
@@ -97,6 +99,7 @@
     <!-- Core JS -->
     @include('components._partials.delete_modal')
     <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/jquery-ui-1.14.2.custom/jquery-ui.min.js')}}"></script>
 
     <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
     <script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
@@ -111,6 +114,8 @@
     <script src="{{asset('assets/vendor/datatables/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('assets/vendor/toastr/toastr.min.js')}}"></script>
     <script src="{{asset('assets/vendor/select2/select2.min.js')}}"></script>
+    {{-- <script src="{{asset('assets/vendor/nestedSortable/jquery.mjs.nestedSortable.js')}}"></script> --}}
+    <script src="{{asset('assets/vendor/jquery-sortablejs/jquery-sortable.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="{{asset('assets/vendor/ckeditor5/build/ckeditor.js')}}"></script>

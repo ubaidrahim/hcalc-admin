@@ -10,7 +10,7 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        $list = Category::where('status',1)->get();
+        $list = Category::where('status',1)->where('status',1)->get();
         $categories = $list->map(function($cat){
             $catArray = [
                 'title' => $cat->title,
@@ -26,7 +26,7 @@ class CategoriesController extends Controller
 
     public function meta($slug)
     {
-        $fetch = Category::where('slug',$slug)->first();
+        $fetch = Category::where('slug',$slug)->where('status',1)->first();
         $data = [
             'title' => '',
             'description' => ''
@@ -41,14 +41,14 @@ class CategoriesController extends Controller
     }
     public function show($slug)
     {
-        $fetch = Category::where('slug',$slug)->with('calculators')->first();
+        $fetch = Category::where('slug',$slug)->where('status',1)->with('calculators')->first();
         if($fetch)
         {
             $data = [
                 'title' => $fetch->title,
                 'description' => $fetch->description ?? '',
                 'slug' => $fetch->slug && $fetch->slug != '' ? $fetch->slug : 'not-found',
-                'calculators' => $fetch->calculators->map(function($calculator){
+                'calculators' => $fetch->calculators->where('status',1)->map(function($calculator){
                     return [
                         'title' => $calculator->title,
                         'description' => $calculator->description ?? '',

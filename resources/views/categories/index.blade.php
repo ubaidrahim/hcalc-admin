@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title','Categories')
+@section('table','categories')
 
 @push('styles')
 <style>

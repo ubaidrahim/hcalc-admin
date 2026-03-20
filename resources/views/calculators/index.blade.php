@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Calculators')
+@section('table','calculators')
 @push('styles')
 <style>
   .card p { margin:0; }
@@ -61,9 +62,9 @@
           <tr>
             <th>ID</th>
             <th>Title</th>
+            <th>Description</th>
             <th>Category</th>
             <th>Sub-Category</th>
-            <th>Description</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>

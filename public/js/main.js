@@ -231,7 +231,7 @@ function initializeCkEditor() {
     let csrfToken = $('meta[name="csrf-token"]').attr('content');
     $('.custom-ckeditor').each(function () {
         var elId = $(this).attr('id');
-        var url = $("#url").val();
+        var url = $("#baseUrl").val();
         var customFontFam = ['Arial', 'Helvetica', 'Cavolini', 'Jost', 'Impact', 'Tahoma', 'Verdana',
             'Garamond', 'Georgia', 'monospace', 'fantasy', 'Papyrus', 'Poppins'
         ];

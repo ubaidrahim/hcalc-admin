@@ -25,6 +25,9 @@ Route::prefix('visitors')->group(function(){
     Route::post('/init',[App\Http\Controllers\Api\VisitorsController::class,'init']);
     Route::post('/track',[App\Http\Controllers\Api\VisitorsController::class,'store']);
 });
+Route::prefix('menu')->group(function(){
+    Route::get('/{menu}',[App\Http\Controllers\Api\MenuController::class,'show']);
+});
 Route::prefix('calculation')->group(function(){
     Route::post('/record',[App\Http\Controllers\Api\CalculatorsController::class,'recordCalculation']);
     Route::get('/fetch/{uuid}',[App\Http\Controllers\Api\CalculatorsController::class,'fetchCalculation']);

@@ -132,18 +132,12 @@ class CalculatorsController extends Controller
                 return $query->subcategory->title ?? '';
             })
             ->editColumn('status', function($query){
-                switch ($query->status) {
-                    case 0:
-                        return '<span class="badge badge-warning">Inactive</span>';
-                        break;
-                    case 1:
-                        return '<span class="badge badge-success">Active</span>'; 
-                        break;
-                    
-                    default:
-                        # code...
-                        break;
-                }
+                $checked = $query->status == 1 ? "checked" : "";
+                $view = '<label class="form-check form-switch" for="active_checkbox' . $query->id . '">
+                                                    <input type="checkbox" class="form-check-input status_enable_disable" role="switch"
+                                                           id="active_checkbox' . $query->id . '" value="' . $query->id . '"
+                                                             ' . $checked . '><i class="slider round"></i></label>';
+                return $view;
             })
             ->editColumn('action', function($query){
                 return view('calculators.partials._action',['query' => $query]);
