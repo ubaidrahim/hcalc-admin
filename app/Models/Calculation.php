@@ -27,4 +27,9 @@ class Calculation extends Model
         }
         });
     }
+
+    public function calculator()
+    {
+        return $this->belongsTo(Calculator::class,'calculator_id','id');
+    }
 }

@@ -15,4 +15,9 @@ class Calculator extends Model
     {
         return $this->belongsTo(Subcategory::class,'subcategory_id','id');
     }
+
+    public function calculations()
+    {
+        return $this->hasMany(Calculation::class,'calculator_id','id');
+    }
 }

@@ -103,7 +103,7 @@ class CalculatorsController extends Controller
     {
         $search = $request->search ?? '';
         $searchParam = '%'.$search.'%';
-        $calculators = Calculator::where('title','like',$searchParam)->get();
+        $calculators = Calculator::where('title','like',$searchParam)->where('status',1)->get();
         $result = $calculators->map(function($calculator) {
             return [
                         'title' => $calculator->title,
@@ -114,4 +114,39 @@ class CalculatorsController extends Controller
         });
         return response()->json(['success' => true, 'data' => $result]);
     }
+    public function famous(Request $request)
+    {
+        $calculators = Calculator::where('status',1)
+        ->withCount('calculations')
+        ->orderBy('calculations_count','desc')
+        ->take(5)
+        ->get();
+        $result = $calculators->map(function($calculator) {
+            return [
+                        'title' => $calculator->title,
+                        'description' => $calculator->description ?? '',
+                        'slug' => $calculator->slug && $calculator->slug != '' ? $calculator->slug : 'not-found',
+                        'tags' => $calculator->meta_keywords && $calculator->meta_keywords != '' ? explode(',', $calculator->meta_keywords) : [],
+                        'count' => $calculator->calculations_count    
+                    ];
+        });
+        return response()->json(['success' => true, 'data' => $result]);
+    }
+    public function recent(Request $request)
+    {
+        $calculators = Calculator::where('status',1)
+        ->latest()
+        ->take(5)
+        ->get();
+        $result = $calculators->map(function($calculator) {
+            return [
+                        'title' => $calculator->title,
+                        'description' => $calculator->description ?? '',
+                        'slug' => $calculator->slug && $calculator->slug != '' ? $calculator->slug : 'not-found',
+                        'tags' => $calculator->meta_keywords && $calculator->meta_keywords != '' ? explode(',', $calculator->meta_keywords) : []    
+                    ];
+        });
+        return response()->json(['success' => true, 'data' => $result]);
+    }
+    
 }

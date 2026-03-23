@@ -17,6 +17,8 @@ Route::prefix('categories')->group(function(){
 });
 Route::prefix('calculator')->group(function(){
     Route::get('/',[App\Http\Controllers\Api\CalculatorsController::class,'index']);
+    Route::get('/famous',[App\Http\Controllers\Api\CalculatorsController::class,'famous']);
+    Route::get('/recent',[App\Http\Controllers\Api\CalculatorsController::class,'recent']);
     Route::get('/fetch/{slug}',[App\Http\Controllers\Api\CalculatorsController::class,'show']);
     Route::get('/meta/{slug}',[App\Http\Controllers\Api\CalculatorsController::class,'meta']);
     Route::post('/search',[App\Http\Controllers\Api\CalculatorsController::class,'search']);
