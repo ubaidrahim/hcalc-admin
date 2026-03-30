@@ -42,7 +42,7 @@ class VisitorsController extends Controller
             \Log::warning('GeoIP lookup failed: ' . $e->getMessage());
         }
 
-        return DB::transaction(function () use ($request) {
+        return DB::transaction(function () use ($request,$city,$country) {
 
             $visitor = Visitor::create([
                 'visitor_uuid' => (string) Str::uuid(),
