@@ -26,5 +26,10 @@ class AppServiceProvider extends ServiceProvider
             use \\App\\Traits\\ContentTrait;
             })->getHomeContent($key); ?>";
         });
+        Blade::directive('getFooterContent', function ($key) {
+        return "<?php echo (new class {
+            use \\App\\Traits\\ContentTrait;
+            })->getFooterContent($key); ?>";
+        });
     }
 }

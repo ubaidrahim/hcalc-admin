@@ -65,6 +65,12 @@
                        Homepage
                    </a>
                  </li>
+                <li class="menu-item {{ request()->routeIs('content.footer.index') ? 'active' : '' }}">
+                   <a class="menu-link"
+                    href="{{ route('content.footer.index') }}">
+                       Footer
+                   </a>
+                 </li>
               </ul>
             </li>
             <li class="menu-item">

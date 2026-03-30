@@ -30,6 +30,7 @@ class MenuController extends Controller
         $arr = null;
         if($item->type == \App\Models\MenuLink::TYPE_CUSTOM_LINK){
                 $arr = [
+                    'id' => $item->id,
                     'title' => $item->title,
                     'url' => $item->url,
                     'new_window' => $item->open_in_new_tab,
@@ -50,6 +51,7 @@ class MenuController extends Controller
                 if($category)
                 {
                     $arr = [
+                        'id' => $item->id,
                         'title' => $category->title,
                         'url' => 'categories/'.$category->slug,
                         'new_window' => $item->open_in_new_tab,
@@ -63,6 +65,7 @@ class MenuController extends Controller
                 if($calculator)
                 {
                     $arr = [
+                        'id' => $item->id,
                         'title' => $calculator->title,
                         'url' => 'categories/'.$calculator->slug,
                         'new_window' => $item->open_in_new_tab,
@@ -76,6 +79,7 @@ class MenuController extends Controller
                 foreach ($categories as $catitem) {
                 // $arr = $categories->map(function($catitem) use ($item){
                     $catArr = [
+                        'id' => $item->id,
                         'title' => $catitem->title,
                         'url' => 'categories/'.$catitem->slug,
                         'new_window' => $item->open_in_new_tab,
@@ -87,6 +91,7 @@ class MenuController extends Controller
                         foreach ($catitem->calculators as $calitem) {
                         // $calculators = $catitem->calculators->map(function($calitem)  use ($item){
                             $calArr[] = [
+                                'id' => $item->id,
                                 'title' => $calitem->title,
                                 'url' => '/'.$calitem->slug,
                                 'new_window' => $item->open_in_new_tab,

@@ -26,6 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'content', 'as' => 'content.'],function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
         Route::post('/home', [App\Http\Controllers\HomeController::class, 'store'])->name('home.store');
+
+        Route::get('/footer', [App\Http\Controllers\FooterController::class, 'index'])->name('footer.index');
+        Route::post('/footer', [App\Http\Controllers\FooterController::class, 'store'])->name('footer.store');
     });
     Route::group(['prefix' => 'settings', 'as' => 'settings.'],function () {
         Route::group(['prefix' => 'menu', 'as' => 'menu.'],function () {
@@ -38,19 +41,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('status-enable-disable', [App\Http\Controllers\AjaxController::class, 'statusEnableDisable'])->name('statusEnableDisable');
     Route::post('ckeditor/upload', [App\Http\Controllers\AjaxController::class, 'ckeditor_img'])->name('ckeditor.upload');
-});
-
-Route::prefix('frontend')->group(function () {
-    Route::get('/category', function () {
-        return view('frontend.category');
-    })->name('category');
-
-    Route::get('/sub-category', function () {
-        return view('frontend.sub-category');
-    })->name('sub-category');
-    Route::get('/calculator', function () {
-        return view('frontend.calculator');
-    })->name('calculator');
 });
 
 

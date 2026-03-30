@@ -64,7 +64,7 @@
                     id="menuSelect">
                     <option value="" @if(!$menu) selected @endif>Choose...</option>
                     <option value="header" @if($menu && $menu == 'header') selected @endif>Header</option>
-                    <option value="footer1" @if($menu && $menu == 'footer1') selected @endif>Footer</option>
+                    <option value="footer" @if($menu && $menu == 'footer') selected @endif>Footer</option>
                   </select>
                   {{-- <button class="btn btn-outline-primary" title="Select" type="button"><i class="icon-base ri ri-checkbox-multiple-line"></i></button> --}}
                 </div>
