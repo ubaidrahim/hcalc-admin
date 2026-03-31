@@ -32,4 +32,9 @@ class Calculation extends Model
     {
         return $this->belongsTo(Calculator::class,'calculator_id','id');
     }
+
+    public function visitor()
+    {
+        return $this->belongsTo(Visitor::class,'visitor_id','id');
+    }
 }

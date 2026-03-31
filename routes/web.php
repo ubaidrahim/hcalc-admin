@@ -26,9 +26,13 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'content', 'as' => 'content.'],function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
         Route::post('/home', [App\Http\Controllers\HomeController::class, 'store'])->name('home.store');
-
+        
         Route::get('/footer', [App\Http\Controllers\FooterController::class, 'index'])->name('footer.index');
         Route::post('/footer', [App\Http\Controllers\FooterController::class, 'store'])->name('footer.store');
+        });
+    Route::group(['prefix' => 'visitors', 'as' => 'visitors.'],function () {
+        Route::get('/', [App\Http\Controllers\VisitorsController::class, 'index'])->name('index');
+        Route::get('/listAll', [App\Http\Controllers\VisitorsController::class, 'listAll'])->name('listAll');
     });
     Route::group(['prefix' => 'settings', 'as' => 'settings.'],function () {
         Route::group(['prefix' => 'menu', 'as' => 'menu.'],function () {

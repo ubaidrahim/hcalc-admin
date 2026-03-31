@@ -13,4 +13,9 @@ class TrackVisitor extends Model
     protected $casts = [
         'meta' => 'array'
     ];
+
+    public function visitor()
+    {
+        return $this->belongsTo(Visitor::class,'visitor_id','id');
+    }
 }
