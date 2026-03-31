@@ -76,6 +76,20 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon icon-base ri ri-home-smile-line"></i>
+                <div data-i18n="Calculators">Visitors & Activities</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('visitors.index') ? 'active' : '' }}">
+                   <a class="menu-link"
+                    href="{{ route('visitors.index') }}">
+                       List Visitors
+                   </a>
+                 </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon icon-base ri ri-home-smile-line"></i>
                 <div data-i18n="Calculators">Website Settings</div>
               </a>
               <ul class="menu-sub">
