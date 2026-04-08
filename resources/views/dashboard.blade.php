@@ -8,8 +8,8 @@
         <div class="col-md-12 col-lg-4">
             <div class="card">
             <div class="card-body text-nowrap">
-                <h5 class="card-title mb-0 flex-wrap text-nowrap">Congratulations Norris! 🎉</h5>
-                <p class="mb-2">Best seller of the month</p>
+                <h5 class="card-title mb-0 flex-wrap text-nowrap">Congratulations {{auth()->user()->name}} 🎉</h5>
+                <p class="mb-2">Most Used Calculator</p>
                 <h4 class="text-primary mb-0">$42.8k</h4>
                 <p class="mb-2">78% of target 🚀</p>
                 <a href="javascript:;" class="btn btn-sm btn-primary">View Sales</a>

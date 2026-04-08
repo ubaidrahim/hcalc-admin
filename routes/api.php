@@ -12,6 +12,7 @@ Route::get('/home-meta',[App\Http\Controllers\Api\HomeController::class,'meta'])
 Route::get('/home-content',[App\Http\Controllers\Api\HomeController::class,'content']);
 Route::get('/footer-categories',[App\Http\Controllers\Api\FooterController::class,'categories']);
 Route::get('/footer-content',[App\Http\Controllers\Api\FooterController::class,'content']);
+Route::get('/site-scripts',[App\Http\Controllers\Api\SiteScriptsController::class,'index']);
 Route::prefix('categories')->group(function(){
     Route::get('/',[App\Http\Controllers\Api\CategoriesController::class,'index']);
     Route::get('/fetch/{slug}',[App\Http\Controllers\Api\CategoriesController::class,'show']);

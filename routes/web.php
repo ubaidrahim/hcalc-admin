@@ -23,6 +23,11 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/subcategories/getByCategory/{categoryId}', [App\Http\Controllers\SubcategoryController::class,'getByCategory'])->name('subcategories.getByCategory');
 
+    Route::resource('/sitescripts', App\Http\Controllers\SiteScriptsController::class);
+    Route::post('/sitescripts/{id}', [App\Http\Controllers\SiteScriptsController::class,'update'])->name('sitescripts.update');
+    Route::get('/site-script/listAll', [App\Http\Controllers\SiteScriptsController::class,'listAll'])->name('sitescripts.listAll');
+    Route::get('/site-script/search/{type}', [App\Http\Controllers\SiteScriptsController::class,'search'])->name('sitescripts.search');
+
     Route::group(['prefix' => 'content', 'as' => 'content.'],function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
         Route::post('/home', [App\Http\Controllers\HomeController::class, 'store'])->name('home.store');
