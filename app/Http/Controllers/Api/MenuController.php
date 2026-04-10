@@ -77,32 +77,32 @@ class MenuController extends Controller
             if($item->type == \App\Models\MenuLink::TYPE_CATEGORY_CALCULATORS){
                 $categories = Category::where('status',1)->with('calculators')->get();
                 foreach ($categories as $catitem) {
-                // $arr = $categories->map(function($catitem) use ($item){
-                    $catArr = [
-                        'id' => $item->id,
-                        'title' => $catitem->title,
-                        'url' => 'categories/'.$catitem->slug,
-                        'new_window' => $item->open_in_new_tab,
-                        'css_class' => $item->css_class,
-                        'icon' => $catitem->icon
-                    ];
-                    if(count($catitem->calculators) > 0)
-                    {
-                        foreach ($catitem->calculators as $calitem) {
+                    // $arr = $categories->map(function($catitem) use ($item){
+                        $catArr = [
+                            'id' => $item->id,
+                            'title' => $catitem->title,
+                            'url' => 'categories/'.$catitem->slug,
+                            'new_window' => $item->open_in_new_tab,
+                            'css_class' => $item->css_class,
+                            'icon' => $catitem->icon
+                        ];
+                        $calArr = [];
+                        if(count($catitem->calculators) > 0)
+                        {
+                            foreach ($catitem->calculators as $calitem) {
                         // $calculators = $catitem->calculators->map(function($calitem)  use ($item){
-                            $calArr[] = [
-                                'id' => $item->id,
-                                'title' => $calitem->title,
-                                'url' => '/'.$calitem->slug,
-                                'new_window' => $item->open_in_new_tab,
-                                'css_class' => $item->css_class,
-                                'icon' => $calitem->icon
-
-                            ];
+                                $calArr[] = [
+                                    'id' => $item->id,
+                                    'title' => $calitem->title,
+                                    'url' => '/'.$calitem->slug,
+                                    'new_window' => $item->open_in_new_tab,
+                                    'css_class' => $item->css_class,
+                                    'icon' => $calitem->icon
+                                ];
+                            }
+                            $catArr['children'] = $calArr;
                         }
-                        $catArr['children'] = $calArr;
-                    }
-                    $arr[] = $catArr;
+                        $arr[] = $catArr;
                 }
             }
             return $arr;

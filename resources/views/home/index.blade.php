@@ -58,9 +58,22 @@
                                 Hero Section Title content
                             </div>
                         </div>
-                        <div class="form-floating form-floating-outline mb-5">
-                            <input class="form-control" type="file" id="heroBg" name="hero_bg" />
-                            <label for="heroBg" class="form-label">Hero Background</label>
+                        <div class="d-flex">
+                            <div class="form-floating form-floating-outline mb-5">
+                                <input class="form-control" type="file" id="heroBg" name="hero_bg" />
+                                <label for="heroBg" class="form-label">Hero Background</label>
+                            </div>
+                            @php
+                                $heroBg = (new class {
+                                    use \App\Traits\ContentTrait;
+                                })->getHomeContent('hero_bg');
+                            @endphp
+                            @if($heroBg && trim((string) $heroBg) !== '')
+                            <div class="form-floating form-floating-outline mb-5 ms-auto">
+                                <img src="{{ asset($heroBg) }}" alt="Hero Background" height="100" class="mb-3 rounded p-2 border border-primary ms-auto">
+                                <label for="heroBg" class="form-label text-primary">Image Preview</label>
+                            </div>
+                            @endif
                         </div>
                         <div class="form-floating form-floating-outline mb-5">
                             <textarea
@@ -96,9 +109,22 @@
                                 About Section Title
                             </div>
                         </div>
-                        <div class="form-floating form-floating-outline mb-5">
-                            <input class="form-control" type="file" id="aboutImage" name="about_image" />
-                            <label for="aboutImage" class="form-label">About Image</label>
+                        <div class="d-flex">
+                            <div class="form-floating form-floating-outline mb-5">
+                                <input class="form-control" type="file" id="aboutImage" name="about_image" />
+                                <label for="aboutImage" class="form-label">About Image</label>
+                            </div>
+                            @php
+                                $aboutImage = (new class {
+                                    use \App\Traits\ContentTrait;
+                                })->getHomeContent('about_image');
+                            @endphp
+                            @if($aboutImage && trim((string) $aboutImage) !== '')
+                            <div class="form-floating form-floating-outline mb-5 ms-auto">
+                                <img src="{{ asset($aboutImage) }}" alt="About Image" height="100" class="mb-3 rounded p-2 border border-primary ms-auto">
+                                <label for="aboutImage" class="form-label text-primary">Image Preview</label>
+                            </div>
+                            @endif
                         </div>
                         <div class="form-floating form-floating-outline mb-5">
                             <textarea

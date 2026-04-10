@@ -113,4 +113,16 @@ if (!function_exists('sendMail')) {
     }
 }
 
+if (!function_exists('getWebsiteSetting')) {
+    function getWebsiteSetting($key)
+    {
+        try {
+            $setting = \App\Models\WebsiteSetting::where('key', $key)->first();
+            return $setting ? $setting->value : '';
+        } catch (Exception $exception) {
+            return false;
+        }
+    }
+}
+
 

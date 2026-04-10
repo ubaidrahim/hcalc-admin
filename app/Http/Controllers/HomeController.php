@@ -24,7 +24,13 @@ class HomeController extends Controller
                 $content = new HomeContent();
                 $content->key = $key;
             }
-            $content->value = $request->hasFile($key) ? $this->saveImage($value) : $value;
+            if($request->hasFile($key))
+            {
+              $content->value = $this->saveImage($value);  
+            }
+            else{
+                $content->value = $value ?? '';
+            }
             $content->save();
         }
         return response()->json(['success' => true, 'data' => $content, 'goto' => route('content.home.index')]);

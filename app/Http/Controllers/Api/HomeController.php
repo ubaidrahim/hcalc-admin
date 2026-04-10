@@ -39,7 +39,10 @@ class HomeController extends Controller
         $data = [
             'hero_title' => $this->getHomeContent('hero_title'),
             'hero_description' => $this->getHomeContent('hero_description'),
-            'hero_bg' => asset($this->getHomeContent('hero_bg'))
+            'hero_bg' => $this->getHomeContent('hero_bg') != '' ? asset($this->getHomeContent('hero_bg')) : null,
+            'about_title' => $this->getHomeContent('about_title'),
+            'about_description' => $this->getHomeContent('about_description'),
+            'about_image' => $this->getHomeContent('about_image') != '' ? asset($this->getHomeContent('about_image')) : null
         ];
         return response()->json(['status' => true, 'data' => $data]);
     }
