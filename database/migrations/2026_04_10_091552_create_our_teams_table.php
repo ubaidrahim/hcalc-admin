@@ -24,9 +24,10 @@ return new class extends Migration
             $table->string('instagram')->nullable();
             $table->string('behance')->nullable();
             $table->string('youtube')->nullable();
+            $table->string('tiktok')->nullable();
             $table->string('upwork')->nullable();
             $table->string('fiverr')->nullable();
-            $table->string('tiktok')->nullable();
+            $table->string('portfolio')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

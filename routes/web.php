@@ -28,6 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/site-script/listAll', [App\Http\Controllers\SiteScriptsController::class,'listAll'])->name('sitescripts.listAll');
     Route::get('/site-script/search/{type}', [App\Http\Controllers\SiteScriptsController::class,'search'])->name('sitescripts.search');
 
+    Route::resource('/team', App\Http\Controllers\TeamController::class);
+    Route::post('/team/{id}', [App\Http\Controllers\TeamController::class,'update'])->name('team.update');
+    Route::get('/teams/listAll', [App\Http\Controllers\TeamController::class,'listAll'])->name('team.listAll');
+    Route::post('/teams/remove-image/{id}', [App\Http\Controllers\TeamController::class,'removeImage'])->name('team.removeImage');
+
     Route::group(['prefix' => 'content', 'as' => 'content.'],function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
         Route::post('/home', [App\Http\Controllers\HomeController::class, 'store'])->name('home.store');

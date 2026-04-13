@@ -71,6 +71,12 @@
                        Footer
                    </a>
                  </li>
+                <li class="menu-item {{ request()->routeIs('team.index') ? 'active' : '' }}">
+                   <a class="menu-link"
+                    href="{{ route('team.index') }}">
+                       Team Members
+                   </a>
+                 </li>
               </ul>
             </li>
             <li class="menu-item">
@@ -103,6 +109,12 @@
                    <a class="menu-link"
                     href="{{ route('settings.menu.index') }}">
                        Menu Settings
+                   </a>
+                 </li>
+                <li class="menu-item {{ request()->routeIs('sitescripts.index') ? 'active' : '' }}">
+                   <a class="menu-link"
+                    href="{{ route('sitescripts.index') }}">
+                       Site Scripts
                    </a>
                  </li>
               </ul>
