@@ -26,6 +26,9 @@ Route::prefix('calculator')->group(function(){
     Route::get('/meta/{slug}',[App\Http\Controllers\Api\CalculatorsController::class,'meta']);
     Route::post('/search',[App\Http\Controllers\Api\CalculatorsController::class,'search']);
 });
+Route::prefix('contact')->group(function(){
+    Route::post('send-message',[App\Http\Controllers\Api\ContactMessageController::class,'sendMessage']);
+});
 Route::prefix('team')->group(function(){
     Route::get('/',[App\Http\Controllers\Api\TeamController::class,'index']);
 });
