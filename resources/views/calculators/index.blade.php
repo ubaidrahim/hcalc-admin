@@ -64,7 +64,7 @@
             <th>Title</th>
             <th>Description</th>
             <th>Category</th>
-            <th>Sub-Category</th>
+            <th>Rating</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>

@@ -45,6 +45,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/listAll', [App\Http\Controllers\VisitorsController::class, 'listAll'])->name('listAll');
     });
     Route::group(['prefix' => 'settings', 'as' => 'settings.'],function () {
+        Route::group(['prefix' => 'website', 'as' => 'website.'],function () {
+            Route::get('/', [App\Http\Controllers\WebsiteSettingsController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\WebsiteSettingsController::class, 'store'])->name('store');
+            Route::post('update-images', [App\Http\Controllers\WebsiteSettingsController::class,'updateImages'])->name('updateImages');
+            Route::post('remove-setting', [App\Http\Controllers\WebsiteSettingsController::class,'removeSetting'])->name('removeSetting');
+        });
         Route::group(['prefix' => 'menu', 'as' => 'menu.'],function () {
             Route::get('/{menu?}', [App\Http\Controllers\MenuSettingsController::class, 'index'])->name('index');
             Route::post('/add-item', [App\Http\Controllers\MenuSettingsController::class, 'addItem'])->name('add');

@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('website_settings', function (Blueprint $table) {
-            $table->id();
-            $table->string('key');
-            $table->longText('value');
-            $table->tinyInteger('status')->default(1);
-            $table->timestamps();
+        Schema::table('website_settings', function (Blueprint $table) {
+            $table->tinyInteger('is_resource')->default(0)->after('value');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('website_settings');
+        Schema::table('website_settings', function (Blueprint $table) {
+            $table->dropColumn('is_resource');
+        });
     }
 };

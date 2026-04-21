@@ -20,4 +20,19 @@ class Calculator extends Model
     {
         return $this->hasMany(Calculation::class,'calculator_id','id');
     }
+    public function feedbacks()
+    {
+        return $this->hasMany(CalculatorFeedback::class,'calculator_id','id');
+    }
+    public function averageRating()
+    {
+        $sumrating = $this->feedbacks()->where('status',1)->sum('rating');
+        $total = $this->feedbacks()->where('status',1)->count();
+        if($total > 0)
+        {
+            $avg = $sumrating / $total;
+            return floor($avg);
+        }
+        return 0;
+    }
 }

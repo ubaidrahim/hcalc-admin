@@ -125,4 +125,24 @@ if (!function_exists('getWebsiteSetting')) {
     }
 }
 
+if (!function_exists('updateWebsiteSetting')) {
+    function updateWebsiteSetting($key, $value,$resource = 0)
+    {
+        try {
+            $setting = \App\Models\WebsiteSetting::where('key', $key)->first();
+            if ($setting) {
+                $setting->value = $value;
+            } else {
+                $setting = new \App\Models\WebsiteSetting();
+                $setting->key = $key;
+                $setting->value = $value;
+                $setting->is_resource = $resource;
+            }
+            $setting->save();
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+}
+
 

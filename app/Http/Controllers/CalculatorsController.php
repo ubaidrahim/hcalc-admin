@@ -131,6 +131,11 @@ class CalculatorsController extends Controller
             ->editColumn('subcategory', function($query){
                 return $query->subcategory->title ?? '';
             })
+            ->editColumn('average', function($query){
+                $avg = $query->averageRating();
+                $total = $query->feedbacks->count();
+                return '<span class="text-nowrap"><i class="ri ri-star-fill text-warning"></i> '.number_format($avg,1).'/5.0</span><br><strong>Total:</strong> '.$total;
+            })
             ->editColumn('status', function($query){
                 $checked = $query->status == 1 ? "checked" : "";
                 $view = '<label class="form-check form-switch" for="active_checkbox' . $query->id . '">
@@ -142,7 +147,7 @@ class CalculatorsController extends Controller
             ->editColumn('action', function($query){
                 return view('calculators.partials._action',['query' => $query]);
             })
-            ->rawColumns(['action','status'])
+            ->rawColumns(['action','status','average'])
             ->make(true);
     }
 }

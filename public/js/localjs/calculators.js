@@ -71,8 +71,8 @@ function pageLoader()
                             className: 'text-start'
                         },
                         {
-                            data: 'subcategory',
-                            name: 'subcategory',
+                            data: 'average',
+                            name: 'average',
                             className: 'text-start'
                         },
                         {

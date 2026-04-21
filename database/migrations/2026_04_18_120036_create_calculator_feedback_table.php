@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('website_settings', function (Blueprint $table) {
+        Schema::create('calculator_feedback', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
-            $table->longText('value');
+            $table->integer('calculator_id');
+            $table->integer('visitor_id');
+            $table->integer('rating');
+            $table->string('comment');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('website_settings');
+        Schema::dropIfExists('calculator_feedback');
     }
 };

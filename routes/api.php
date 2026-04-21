@@ -39,7 +39,14 @@ Route::prefix('visitors')->group(function(){
 Route::prefix('menu')->group(function(){
     Route::get('/{menu}',[App\Http\Controllers\Api\MenuController::class,'show']);
 });
+Route::prefix('setting')->group(function(){
+    Route::get('/{key}',[App\Http\Controllers\Api\SettingsController::class,'show']);
+});
 Route::prefix('calculation')->group(function(){
     Route::post('/record',[App\Http\Controllers\Api\CalculatorsController::class,'recordCalculation']);
     Route::get('/fetch/{uuid}',[App\Http\Controllers\Api\CalculatorsController::class,'fetchCalculation']);
+});
+Route::prefix('feedback')->group(function(){
+    Route::post('/fetch',[App\Http\Controllers\Api\FeedbackController::class,'fetch']);
+    Route::post('/store',[App\Http\Controllers\Api\FeedbackController::class,'store']);
 });
