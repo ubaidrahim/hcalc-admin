@@ -77,6 +77,18 @@
                        Team Members
                    </a>
                  </li>
+                <li class="menu-item {{ request()->routeIs('content.policy.index',['type' => 'privacy_policy']) ? 'active' : '' }}">
+                   <a class="menu-link"
+                    href="{{ route('content.policy.index',['type' => 'privacy_policy']) }}">
+                       Privacy Policy
+                   </a>
+                 </li>
+                <li class="menu-item {{ request()->routeIs('content.policy.index',['type' => 'terms']) ? 'active' : '' }}">
+                   <a class="menu-link"
+                    href="{{ route('content.policy.index',['type' => 'terms']) }}">
+                       Terms of Use
+                   </a>
+                 </li>
               </ul>
             </li>
             <li class="menu-item">

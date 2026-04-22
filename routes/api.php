@@ -39,6 +39,9 @@ Route::prefix('visitors')->group(function(){
 Route::prefix('menu')->group(function(){
     Route::get('/{menu}',[App\Http\Controllers\Api\MenuController::class,'show']);
 });
+Route::prefix('policy')->group(function(){
+    Route::get('/{type}',[App\Http\Controllers\Api\PolicyContentController::class,'index']);
+});
 Route::prefix('setting')->group(function(){
     Route::get('/{key}',[App\Http\Controllers\Api\SettingsController::class,'show']);
 });

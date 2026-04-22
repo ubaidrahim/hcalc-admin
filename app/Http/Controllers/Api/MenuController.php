@@ -53,7 +53,7 @@ class MenuController extends Controller
                     $arr = [
                         'id' => $item->id,
                         'title' => $category->title,
-                        'url' => 'categories/'.$category->slug,
+                        'url' => '/categories/'.$category->slug,
                         'new_window' => $item->open_in_new_tab,
                         'css_class' => $item->css_class,
                         'icon' => $category->icon
@@ -67,7 +67,7 @@ class MenuController extends Controller
                     $arr = [
                         'id' => $item->id,
                         'title' => $calculator->title,
-                        'url' => 'categories/'.$calculator->slug,
+                        'url' => '/categories/'.$calculator->slug,
                         'new_window' => $item->open_in_new_tab,
                         'css_class' => $item->css_class,
                         'icon' => $calculator->icon
@@ -81,7 +81,7 @@ class MenuController extends Controller
                         $catArr = [
                             'id' => $item->id,
                             'title' => $catitem->title,
-                            'url' => 'categories/'.$catitem->slug,
+                            'url' => '/categories/'.$catitem->slug,
                             'new_window' => $item->open_in_new_tab,
                             'css_class' => $item->css_class,
                             'icon' => $catitem->icon

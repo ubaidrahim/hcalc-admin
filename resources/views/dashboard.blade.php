@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Dashboard')
 @section('content')
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -10,12 +10,12 @@
             <div class="card-body text-nowrap">
                 <h5 class="card-title mb-0 flex-wrap text-nowrap">Congratulations {{auth()->user()->name}} 🎉</h5>
                 <p class="mb-2">Most Used Calculator</p>
-                <h4 class="text-primary mb-0">$42.8k</h4>
+                <h4 class="text-primary mb-0">42.8k</h4>
                 <p class="mb-2">78% of target 🚀</p>
                 <a href="javascript:;" class="btn btn-sm btn-primary">View Sales</a>
             </div>
             <img
-                src="../assets/img/illustrations/trophy.png"
+                src="{{asset('assets/img/illustrations/trophy.png')}}"
                 class="position-absolute bottom-0 end-0 me-5 mb-5"
                 width="83"
                 alt="view sales" />
@@ -28,7 +28,7 @@
             <div class="card h-100">
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-between">
-                <h5 class="card-title m-0 me-2">Transactions</h5>
+                <h5 class="card-title m-0 me-2">Statistics</h5>
                 <div class="dropdown">
                     <button
                     class="btn text-body-secondary p-0"
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <p class="mb-0">Sales</p>
+                        <p class="mb-0">Calculations</p>
                         <h5 class="mb-0">245k</h5>
                     </div>
                     </div>
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <p class="mb-0">Customers</p>
+                        <p class="mb-0">Visitors</p>
                         <h5 class="mb-0">12.5k</h5>
                     </div>
                     </div>
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <p class="mb-0">Product</p>
+                        <p class="mb-0">Calculators</p>
                         <h5 class="mb-0">1.54k</h5>
                     </div>
                     </div>
@@ -97,8 +97,8 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <p class="mb-0">Revenue</p>
-                        <h5 class="mb-0">$88k</h5>
+                        <p class="mb-0">Reviews</p>
+                        <h5 class="mb-0">88k</h5>
                     </div>
                     </div>
                 </div>

@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
         
         Route::get('/footer', [App\Http\Controllers\FooterController::class, 'index'])->name('footer.index');
         Route::post('/footer', [App\Http\Controllers\FooterController::class, 'store'])->name('footer.store');
+
+        Route::get('/policy/{type}', [App\Http\Controllers\PolicyController::class, 'index'])->name('policy.index');
+        Route::post('/policy/{type}', [App\Http\Controllers\PolicyController::class, 'store'])->name('policy.store');
         });
     Route::group(['prefix' => 'visitors', 'as' => 'visitors.'],function () {
         Route::get('/', [App\Http\Controllers\VisitorsController::class, 'index'])->name('index');

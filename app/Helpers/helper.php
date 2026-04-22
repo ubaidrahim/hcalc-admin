@@ -145,4 +145,10 @@ if (!function_exists('updateWebsiteSetting')) {
     }
 }
 
+function getPolicyContent($key, $type) {
+    return (new class {
+        use \App\Traits\ContentTrait;
+    })->getPolicyContent($key, $type);
+}
+
 
