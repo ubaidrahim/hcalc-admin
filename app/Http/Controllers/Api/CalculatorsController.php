@@ -34,9 +34,11 @@ class CalculatorsController extends Controller
 
     public function show($slug)
     {
-        $calculator = Calculator::where('slug',$slug)->first();
+        $calculator = Calculator::where('slug',$slug)->where('status',1)->first();
         if($calculator)
         {
+            $avgRating = $calculator->averageRating();
+            $reviews = $calculator->feedbacks()->where('status',1)->count();
             $related_calcs = $calculator->related_calcs && $calculator->related_calcs != '' ? json_decode($calculator->related_calcs) : [];
             $related_calcs_data = [];
             foreach($related_calcs as $related_calc_id)
@@ -58,6 +60,8 @@ class CalculatorsController extends Controller
                 'slug' => $calculator->slug && $calculator->slug != '' ? $calculator->slug : 'not-found',
                 'component' => $calculator->component && $calculator->component != '' ? $calculator->component : 'notFound',
                 'content' => $calculator->content ?? '',
+                'avgRating' => $avgRating,
+                'reviews' => $reviews,
                 'related_calcs' => $related_calcs_data,
             ];
             return response()->json(['success' => true, 'data' => $data]);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CalculatorFeedback;
+use App\Models\Calculator;
 
 class FeedbackController extends Controller
 {
@@ -28,7 +29,18 @@ class FeedbackController extends Controller
         $feedback->comment = $request->comment;
         $feedback->rating = $request->rating;
         $feedback->save();
-        return response()->json(['success' => true, 'data' => $feedback]);
+        $calculator = Calculator::find($calculator_id);
+        $data = [
+            'id' => $feedback->id,
+            'comment' => $feedback->comment,
+            'rating' => $feedback->rating
+        ];
+        if($calculator)
+        {
+            $data['avgRating'] = $calculator->averageRating();
+            $data['reviews'] = $calculator->feedbacks()->where('status',1)->count();
+        }
+        return response()->json(['success' => true, 'data' => $data]);
     }
 
     public function fetch(Request $request)
