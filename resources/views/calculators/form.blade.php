@@ -29,6 +29,32 @@
                   <label class="form-label">Meta Description</label>
                   <input type="text" id="calMetaDescription" name="meta_description" class="form-control">
                 </div>
+                <div class="col-md-12 mb-3 d-flex gap-3">
+                  <img
+                          src=""
+                          alt="user-avatar"
+                          class="d-block w-px-100 h-px-100 rounded"
+                          id="uploadedAvatar" />
+                        <div class="button-wrapper">
+                          <label for="upload" class="btn btn-sm btn-primary me-3 mb-4" tabindex="0">
+                            <span class="d-none d-sm-block">Upload new photo</span>
+                            <i class="icon-base ri ri-upload-2-line d-block d-sm-none"></i>
+                            <input
+                              type="file"
+                              id="upload"
+                              class="account-file-input"
+                              name="image"
+                              hidden
+                              accept="image/*" />
+                          </label>
+                          <button type="button" class="btn btn-sm btn-outline-danger account-image-reset mb-4">
+                            <i class="icon-base ri ri-refresh-line d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Reset</span>
+                          </button>
+
+                          <div>Allowed JPG, GIF or PNG. Max size of 800K</div>
+                        </div>
+                </div>
                 <div class="col-lg-12 mb-3">
                   <small class="fw-medium">Related Calculators</small>
                   <div class="demo-inline-spacing mt-4">

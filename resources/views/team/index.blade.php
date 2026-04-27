@@ -83,6 +83,6 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<script src="{{asset('js/localjs/team.js')}}"></script>
 <script src="{{asset('assets/js/pages-account-settings-account.js')}}"></script>
+<script src="{{asset('js/localjs/team.js')}}"></script>
 @endpush

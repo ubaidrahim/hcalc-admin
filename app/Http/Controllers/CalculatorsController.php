@@ -8,9 +8,11 @@ use Carbon\Carbon;
 use App\Models\Subcategory;
 use App\Models\Category;
 use App\Models\Calculator;
+use App\Traits\ImageStore;
 
 class CalculatorsController extends Controller
 {
+    use ImageStore;
     /**
      * Display a listing of the resource.
      */
@@ -52,6 +54,10 @@ class CalculatorsController extends Controller
         $calculator->content = $request->content ?? null;
         $calculator->category_id = $request->category_id;
         $calculator->subcategory_id = $request->subcategory_id ?? 0;
+        if($request->image)
+        {
+            $calculator->image = $this->saveImage($request->image);
+        }
         $calculator->save();
 
         return response()->json(['success' => true, 'data' => $calculator]);
@@ -100,6 +106,10 @@ class CalculatorsController extends Controller
         $calculator->content = $request->content ?? null;
         $calculator->category_id = $request->category_id;
         $calculator->subcategory_id = $request->subcategory_id ?? 0;
+        if($request->image)
+        {
+            $calculator->image = $this->saveImage($request->image);
+        }
         $calculator->save();
         return response()->json(['success' => true, 'data' => $calculator]);
     }

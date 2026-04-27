@@ -96,5 +96,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{asset('js/localjs/calculators.js')}}"></script>\
+<script src="{{asset('js/localjs/calculators.js?v=1')}}"></script>\
 @endpush

@@ -130,6 +130,7 @@ class CalculatorsController extends Controller
                         'title' => $calculator->title,
                         'description' => $calculator->description ?? '',
                         'slug' => $calculator->slug && $calculator->slug != '' ? $calculator->slug : 'not-found',
+                        'image' => $calculator->image ? asset($calculator->image) : null,
                         'tags' => $calculator->meta_keywords && $calculator->meta_keywords != '' ? explode(',', $calculator->meta_keywords) : [],
                         'count' => $calculator->calculations_count    
                     ];
@@ -147,6 +148,7 @@ class CalculatorsController extends Controller
                         'title' => $calculator->title,
                         'description' => $calculator->description ?? '',
                         'slug' => $calculator->slug && $calculator->slug != '' ? $calculator->slug : 'not-found',
+                        'image' => $calculator->image ? asset($calculator->image) : null,
                         'tags' => $calculator->meta_keywords && $calculator->meta_keywords != '' ? explode(',', $calculator->meta_keywords) : []    
                     ];
         });

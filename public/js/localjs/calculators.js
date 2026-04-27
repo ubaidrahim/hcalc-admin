@@ -1,3 +1,4 @@
+let resetImage = baseurl + '/' + 'assets/img/illustrations/blank.png';
 function pageLoader()
 {
     resetForm();
@@ -133,6 +134,8 @@ function resetForm()
   $('#categoryType').val('');
   $('#subcategoryType').val('');
   $('#subcategoryType').html('');
+    $('#uploadedAvatar').attr('src', baseurl + '/' + 'assets/img/illustrations/blank.png');
+    resetImage = baseurl + '/' + 'assets/img/illustrations/blank.png';
   editorInstance.calContent.setData('');
   refreshSelect2();
     $('#calculatorForm').attr('action',formUrl);
@@ -164,6 +167,8 @@ $(document).on('click', '.editBtn', function () {
             $('#calMetaTitle').val(response.data.meta_title);
             $('#calMetaKeywords').val(response.data.meta_keywords);
             $('#calMetaDescription').val(response.data.meta_description);
+            $('#uploadedAvatar').attr('src', response.data.image ? baseurl + '/' + response.data.image : baseurl + '/' + 'assets/img/illustrations/blank.png');
+            resetImage = response.data.image ? baseurl + '/' + response.data.image : baseurl + '/' + 'assets/img/illustrations/blank.png';
             $('#calDesc').val(response.data.description);
             $('#calContent').val(response.data.content);
             $('#categoryType').val(response.data.category_id);
@@ -231,3 +236,32 @@ function populateSubcategory(categoryId)
         }
     }, '', '');
 }
+
+/**
+ * Account Settings - Account
+ */
+
+'use strict';
+
+document.addEventListener('DOMContentLoaded', function (e) {
+    (function () {
+        const deactivateAcc = document.querySelector('#formAccountDeactivation');
+
+        // Update/reset user image of account page
+        let accountUserImage = document.getElementById('uploadedAvatar');
+        const fileInput = document.querySelector('.account-file-input'),
+            resetFileInput = document.querySelector('.account-image-reset');
+
+        if (accountUserImage) {
+            fileInput.onchange = () => {
+                if (fileInput.files[0]) {
+                    accountUserImage.src = window.URL.createObjectURL(fileInput.files[0]);
+                }
+            };
+            resetFileInput.onclick = () => {
+                fileInput.value = '';
+                accountUserImage.src = resetImage;
+            };
+        }
+    })();
+});
