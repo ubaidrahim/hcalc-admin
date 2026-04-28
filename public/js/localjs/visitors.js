@@ -13,5 +13,8 @@ $(document).on('click', '#paginationLinks a[href]',function(e){
     SendAjaxRequestToServer('get', href, '', '', function (response) {
         $('#visitorList').html(response.body);
         $('#paginationLinks').html(response.links);
+        $('html, body').animate({
+            scrollTop: $('#visitorList').parent('table').offset().top
+        }, 600);
     }, '', '');
 });
