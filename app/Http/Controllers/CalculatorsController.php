@@ -40,7 +40,7 @@ class CalculatorsController extends Controller
             'title' => 'required',
             'content' => 'required',
             'category_id' => 'required',
-            'slug' => 'required|string|max:30|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:calculators,slug',
+            'slug' => 'required|string|max:100|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:calculators,slug',
         ]);
 
         $calculator = new Calculator();
@@ -93,7 +93,7 @@ class CalculatorsController extends Controller
             'description' => 'required',
             'content' => 'required',
             'category_id' => 'required',
-            'slug' => 'required|string|max:30|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:calculators,slug,'.$id,
+            'slug' => 'required|string|max:100|regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/|unique:calculators,slug,'.$id,
         ]);
 
         $calculator = Calculator::find($id);
@@ -123,7 +123,7 @@ class CalculatorsController extends Controller
         $calculator->delete();
         return response()->json(['success' => true, 'data' => $calculator]);
     }
-
+    
     public function listAll(Request $request)
     {
         $query = Calculator::query();

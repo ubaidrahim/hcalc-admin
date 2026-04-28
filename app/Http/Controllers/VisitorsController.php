@@ -14,7 +14,17 @@ class VisitorsController extends Controller
         return view('visitors.index');
     }
 
-    public function listAll(Request $request)
+    
+
+    public function listAll(Request $request){
+        $offset = 0;
+        $query = Visitor::with('pageviews','calculations')->latest()->paginate(25);
+        $body = view('visitors.rows',['query' => $query])->render();
+        $links = $query->appends(request()->except('page'))->links()->render();
+        return response()->json(['body' => $body, 'links' => $links]);
+    }
+
+    public function listAllBak(Request $request)
     {
         $query = Visitor::with('pageviews','calculations')->latest();
         return DataTables::of($query)
