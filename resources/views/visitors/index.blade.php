@@ -81,5 +81,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{asset('js/localjs/visitors.js')}}"></script>\
+<script src="{{asset('js/localjs/visitors.js?v=1')}}"></script>\
 @endpush
