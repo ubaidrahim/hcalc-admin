@@ -8,11 +8,11 @@
         <div class="col-md-12 col-lg-4">
             <div class="card">
             <div class="card-body text-nowrap">
-                <h5 class="card-title mb-0 flex-wrap text-nowrap">Congratulations {{auth()->user()->name}} 🎉</h5>
-                <p class="mb-2">Most Used Calculator</p>
-                <h4 class="text-primary mb-0">42.8k</h4>
-                <p class="mb-2">78% of target 🚀</p>
-                <a href="javascript:;" class="btn btn-sm btn-primary">View Sales</a>
+                <h5 class="card-title mb-0 flex-wrap text-nowrap">Welcome {{auth()->user()->name}} 🎉</h5>
+                <p class="mb-2">Most Used Calculator (Last 30 days)</p>
+                <h4 class="text-primary mb-0">{{ $stats['mostviewedName'] }}</h4>
+                <p class="mb-2">{{ $stats['mostviewedCount'] }} Calculations</p>
+                <a href="{{route('calculators.index')}}" class="btn btn-sm btn-primary">View Calculators</a>
             </div>
             <img
                 src="{{asset('assets/img/illustrations/trophy.png')}}"
@@ -46,23 +46,10 @@
                     </div>
                 </div>
                 </div>
-                <p class="small mb-0"><span class="h6 mb-0">Total 48.5% Growth</span> 😎 this month</p>
+                <p class="small mb-0"><span class="h6 mb-0">Total {{$stats['growth']}}% Growth</span> 😎 this month</p>
             </div>
             <div class="card-body pt-lg-10">
                 <div class="row g-6">
-                <div class="col-md-3 col-6">
-                    <div class="d-flex align-items-center">
-                    <div class="avatar">
-                        <div class="avatar-initial bg-primary rounded shadow-xs">
-                        <i class="icon-base ri ri-pie-chart-2-line icon-24px"></i>
-                        </div>
-                    </div>
-                    <div class="ms-3">
-                        <p class="mb-0">Calculations</p>
-                        <h5 class="mb-0">245k</h5>
-                    </div>
-                    </div>
-                </div>
                 <div class="col-md-3 col-6">
                     <div class="d-flex align-items-center">
                     <div class="avatar">
@@ -72,7 +59,7 @@
                     </div>
                     <div class="ms-3">
                         <p class="mb-0">Visitors</p>
-                        <h5 class="mb-0">12.5k</h5>
+                        <h5 class="mb-0">{{$stats['visitors']}}</h5>
                     </div>
                     </div>
                 </div>
@@ -84,8 +71,21 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <p class="mb-0">Calculators</p>
-                        <h5 class="mb-0">1.54k</h5>
+                        <p class="mb-0">Page Views</p>
+                        <h5 class="mb-0">{{$stats['pageviews']}}</h5>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="d-flex align-items-center">
+                    <div class="avatar">
+                        <div class="avatar-initial bg-primary rounded shadow-xs">
+                        <i class="icon-base ri ri-calculator-line icon-24px"></i>
+                        </div>
+                    </div>
+                    <div class="ms-3">
+                        <p class="mb-0">Calculations</p>
+                        <h5 class="mb-0">{{$stats['calculations']}}</h5>
                     </div>
                     </div>
                 </div>
@@ -93,12 +93,12 @@
                     <div class="d-flex align-items-center">
                     <div class="avatar">
                         <div class="avatar-initial bg-info rounded shadow-xs">
-                        <i class="icon-base ri ri-money-dollar-circle-line icon-24px"></i>
+                        <i class="icon-base ri ri-global-line icon-24px"></i>
                         </div>
                     </div>
                     <div class="ms-3">
-                        <p class="mb-0">Reviews</p>
-                        <h5 class="mb-0">88k</h5>
+                        <p class="mb-0">Countries</p>
+                        <h5 class="mb-0">{{$stats['countries']}}</h5>
                     </div>
                     </div>
                 </div>
