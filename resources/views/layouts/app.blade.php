@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/node-waves/node-waves.css')}}" />
 
-    <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css?v=1')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/preloader/preloader.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/jquery-ui-1.14.2.custom/jquery-ui.min.css') }}" />
