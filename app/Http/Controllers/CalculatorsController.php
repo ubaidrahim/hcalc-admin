@@ -124,7 +124,24 @@ class CalculatorsController extends Controller
         return response()->json(['success' => true, 'data' => $calculator]);
     }
     
-    public function listAll(Request $request)
+    public function listAll(Request $request){
+        $offset = 0;
+        $query = Calculator::with(
+            'category',
+            'subcategory',
+            'calculations',
+            'feedbacks'
+        )->latest()->paginate(25);
+        $body = view('calculators.partials.rows',['query' => $query])->render();
+        $links = $query->appends(request()->except('page'))->links()->render();
+        // $counts = [
+        //     'total' => $query->total(),
+        //     'active' => (clone $query)->where('status',1)->count(),
+        //     'inactive' => (clone $query)->where('status',0)->count()
+        // ];
+        return response()->json(['body' => $body, 'links' => $links]);
+    }
+    public function listAllBak(Request $request)
     {
         $query = Calculator::query();
         return DataTables::of($query)

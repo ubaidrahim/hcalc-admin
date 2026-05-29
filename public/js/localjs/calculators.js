@@ -2,93 +2,11 @@ let resetImage = baseurl + '/' + 'assets/img/illustrations/blank.png';
 function pageLoader()
 {
     resetForm();
-    dataTableInstance = $('#tableid').DataTable({
-                    bLengthChange: true,
-                    // remove search box
-                    bFilter: false,
-                    "bDestroy": true,
-                    "lengthChange": true,
-                    responsive: true,
-                    ordering: false,
-                    dom: 'Blrtip',
-                    pageLength: 25,
-                    processing: true,
-                    serverSide: true,
-                    buttons: [{
-                            extend: 'excelHtml5',
-                            text: 'Export CSV',
-                            className: 'exportCsv d-none', // Add a custom class to reference in JS
-                            exportOptions: {
-                              columns: ':not(.no-export)',
-                            }
-                        },
-                        {
-                            extend: 'pdfHtml5',
-                            text: 'Export PDF',
-                            className: 'exportPdf d-none', // Add a custom class to reference in JS
-                            exportOptions: {
-                              columns: ':not(.no-export)',
-                            }
-                        },
-                    ],
-                    "ajax": {
-                        url: baseurl + '/calculator/listAll',
-                        // data: {
-                        //   filterAgentId: filterAgentId,
-                        //   filterAgentName: filterAgentName,
-                        //   filterType: filterType,
-                        //   daterange: daterange
-                        // },
-                        // pages: 5 // number of pages to cache
-                        dataSrc: function(json) {
-                            // You can access the totalRecords here
-                            var totalRecords = json.totalRecords;
-                            console.log(json);
-                            $('.count-title').text(
-                                totalRecords); // Assuming you have an element with id 'total-records'
-                            return json.data; // Return the actual data to DataTable
-                        }
-                    },
-                    columns: [{
-                            data: 'DT_RowIndex',
-                            name: 'id',
-                            className: 'text-start',
-                            orderable: true
-                        },
-                        {
-                            data: 'title',
-                            name: 'title',
-                            className: 'text-start'
-                        },
-                        // department
-                        {
-                            data: 'description',
-                            name: 'description',
-                            className: 'text-start'
-                        },
-                        {
-                            data: 'category',
-                            name: 'category',
-                            className: 'text-start'
-                        },
-                        {
-                            data: 'average',
-                            name: 'average',
-                            className: 'text-start'
-                        },
-                        {
-                            data: 'status',
-                            name: 'status',
-                            className: 'text-start'
-                        },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            className: 'text-start'
-                        },
-                    ],
-                    lengthMenu: [5, 10, 25, 50, 75, 100]
-                });
+    let url = baseurl + '/calculator/listAll';
+    SendAjaxRequestToServer('get', url, '', '', function (response) {
+        $('#calculatorList').html(response.body);
+        $('#paginationLinks').html(response.links);
+    }, '', '');
 
 }
 
@@ -185,6 +103,15 @@ $(document).on('click', '.editBtn', function () {
     }, '', '');
 });
 
+$(document).on('click', '#paginationLinks a[href]', function (e) {
+    e.preventDefault();
+    var href = $(this).attr('href');
+    SendAjaxRequestToServer('get', href, '', '', function (response) {
+        $('#calculatorList').html(response.body);
+        $('#paginationLinks').html(response.links);
+    }, '', '');
+})
+
 $(document).on('change', '#categoryType', function() {
     var categoryId = $(this).val();
     populateSubcategory(categoryId);
@@ -195,7 +122,6 @@ function populateRelatedCalculators(calculatorId)
     var url = baseurl + '/calculators/' + calculatorId + '/edit';
     var data = '';
     SendAjaxRequestToServer('get', url, data, '', function(response){
-        console.log(response);
         if(response.success)
         {
             let relatedArr = response.related;

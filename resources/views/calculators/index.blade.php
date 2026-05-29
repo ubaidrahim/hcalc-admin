@@ -27,50 +27,55 @@
 <div class="content-wrapper">
   <div class="container-xxl flex-grow-1 container-p-y">
 
-    <h3 class="mb-4">Calculator</h3>
+    <h3 class="mb-4">Calculators</h3>
 
     <div class="row mb-4">
       <div class="col-md-4">
         <div class="card p-3 text-center">
           <h5>Total Calculator</h5>
-          <h2 id="countTotal">0</h2>
+          <h2 id="countTotal">{{\App\Models\Calculator::count()}}</h2>
         </div>
       </div>
 
       <div class="col-md-4">
         <div class="card p-3 text-center">
           <h5>Active Calculator</h5>
-          <h2 id="countActive">0</h2>
+          <h2 id="countActive">{{\App\Models\Calculator::where('status',1)->count()}}</h2>
         </div>
       </div>
 
       <div class="col-md-4">
         <div class="card p-3 text-center">
           <h5>Inactive Calculator</h5>
-          <h2 id="countInactive">0</h2>
+          <h2 id="countInactive">{{\App\Models\Calculator::where('status',0)->count()}}</h2>
         </div>
       </div>
     </div>
+    <div class="col-md-12">
+        <div class="card p-4">
 
-    <div class="d-flex justify-content-end mb-3">
-      <button class="btn btn-primary" id="btnAddcalculator">+ Add Calculator</button>
-    </div>
+          <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-primary" id="btnAddcalculator">+ Add Calculator</button>
+          </div>
 
-    <div class="table-responsive">
-      <table class="table" id="tableid">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Rating</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="calculatorList"></tbody>
-      </table>
+          <div class="table-responsive">
+            <table class="table table-striped" id="tableid">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Rating</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="calculatorList"></tbody>
+            </table>
+          </div>
+          <div class="my-3" id="paginationLinks"></div>
+        </div>
     </div>
 
     @include('calculators.form')
