@@ -103,6 +103,7 @@ class CalculatorsController extends Controller
         $calculator->meta_description = $request->meta_description ?? null;
         $calculator->meta_keywords = $request->meta_keywords ?? null;
         $calculator->description = $request->description ?? null;
+        $calculator->related_calcs = $request->related_calcs && is_array($request->related_calcs) ? json_encode($request->related_calcs) : json_encode(array());
         $calculator->content = $request->content ?? null;
         $calculator->category_id = $request->category_id;
         $calculator->subcategory_id = $request->subcategory_id ?? 0;

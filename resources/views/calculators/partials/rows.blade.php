@@ -5,6 +5,7 @@
     @endphp
     <tr>
         <td>{{$loop->iteration}}</td>
+        <td>{{$item->id}}</td>
         <td>{{$item->title}}</td>
         <td>{{$item->description}}</td>
         <td>{{$item->category->title ?? ''}}</td>

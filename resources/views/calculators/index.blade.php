@@ -62,6 +62,7 @@
             <table class="table table-striped" id="tableid">
               <thead>
                 <tr>
+                  <th>Sr #</th>
                   <th>ID</th>
                   <th>Title</th>
                   <th>Description</th>
