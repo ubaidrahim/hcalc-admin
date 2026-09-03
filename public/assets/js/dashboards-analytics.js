@@ -65,31 +65,17 @@
       },
       series: [
         {
-          name: 'Sales',
-          data: [32, 55, 45, 75, 55, 35, 70]
+          name: 'Weekly Activity ',
+          data: weeklyOverviewValues
         }
       ],
-      colors: [chartBgColor],
+      colors: [config.colors.primary],
       plotOptions: {
         bar: {
           borderRadius: 8,
           columnWidth: '30%',
           endingShape: 'rounded',
           startingShape: 'rounded',
-          colors: {
-            ranges: [
-              {
-                from: 75,
-                to: 80,
-                color: config.colors.primary
-              },
-              {
-                from: 0,
-                to: 73,
-                color: chartBgColor
-              }
-            ]
-          }
         }
       },
       dataLabels: {
@@ -109,7 +95,7 @@
         axisTicks: { show: false },
         crosshairs: { opacity: 0 },
         axisBorder: { show: false },
-        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        categories: weeklyOverviewLabels,
         tickPlacement: 'on',
         labels: {
           show: false
@@ -122,13 +108,11 @@
         }
       },
       yaxis: {
-        min: 0,
-        max: 90,
         show: true,
         tickAmount: 3,
         labels: {
           formatter: function (val) {
-            return parseInt(val) + 'K';
+            return parseInt(val);
           },
           style: {
             fontSize: '13px',

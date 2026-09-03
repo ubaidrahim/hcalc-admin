@@ -133,7 +133,7 @@
     <script src="{{asset('js/main.js')}}"></script>
 
     <!-- Page JS -->
-    <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
+    
     @stack('scripts')
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>

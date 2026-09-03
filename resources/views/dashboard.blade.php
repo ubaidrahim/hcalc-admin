@@ -29,7 +29,7 @@
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-between">
                 <h5 class="card-title m-0 me-2">Statistics</h5>
-                <div class="dropdown">
+                <div class="dropdown d-none">
                     <button
                     class="btn text-body-secondary p-0"
                     type="button"
@@ -113,8 +113,8 @@
             <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                <h5 class="mb-1">Weekly Overview</h5>
-                <div class="dropdown">
+                <h5 class="mb-1">Weekly Overview (Last 4 Weeks)</h5>
+                <div class="dropdown d-none">
                     <button
                     class="btn text-body-secondary p-0"
                     type="button"
@@ -136,11 +136,11 @@
                 <div id="weeklyOverviewChart"></div>
                 <div class="mt-1 mt-md-3">
                 <div class="d-flex align-items-center gap-4">
-                    <h4 class="mb-0">45%</h4>
-                    <p class="mb-0">Your sales performance is 45% 😎 better compared to last month</p>
+                    <h4 class="mb-0">{{$stats['growth']}}%</h4>
+                    <p class="mb-0">Our growth performance is {{$stats['growth']}}% 😎 better compared to last month</p>
                 </div>
                 <div class="d-grid mt-3 mt-md-4">
-                    <button class="btn btn-primary" type="button">Details</button>
+                    <a href="{{ route('visitors.index') }}" class="btn btn-primary">Details</a>
                 </div>
                 </div>
             </div>
@@ -152,8 +152,8 @@
         <div class="col-xl-4 col-md-6">
             <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="card-title m-0 me-2">Total Earning</h5>
-                <div class="dropdown">
+                <h5 class="card-title m-0 me-2">Total Activity</h5>
+                <div class="dropdown d-none">
                 <button
                     class="btn text-body-secondary p-0"
                     type="button"
@@ -173,196 +173,56 @@
             <div class="card-body pt-lg-8">
                 <div class="mb-5 mb-lg-12">
                 <div class="d-flex align-items-center">
-                    <h3 class="mb-0">$24,895</h3>
-                    <span class="text-success ms-2">
-                    <i class="icon-base ri ri-arrow-up-s-line icon-sm"></i>
-                    <span>10%</span>
+                    <h3 class="mb-0">{{ $stats['allactivity'] }}</h3>
+                    <span class="{{$stats['activityFlag'] == 1 ? 'text-success' : 'text-danger'}} ms-2">
+                    @switch($stats['activityFlag'])
+                        @case(1)
+                            <i class="icon-base ri ri-arrow-up-s-line icon-sm"></i>
+                        @break
+                        @case(0)
+                        <i class="icon-base ri ri-arrow-down-s-line icon-sm"></i>
+                        @break
+                        @default
+                            
+                    @endswitch
+                    <span>{{$stats['activityPct']}}%</span>
                     </span>
                 </div>
-                <p class="mb-0">Compared to $84,325 last year</p>
+                <p class="mb-0">Compared to {{$stats['lastMonthActivity']}} last month</p>
                 </div>
                 <ul class="p-0 m-0">
-                <li class="d-flex mb-6">
-                    <div class="avatar flex-shrink-0 bg-lightest rounded me-3">
-                    <img src="../assets/img/icons/misc/zipcar.png" alt="zipcar" />
-                    </div>
-                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                    <div class="me-2">
-                        <h6 class="mb-0">Zipcar</h6>
-                        <p class="mb-0">Vuejs, React & HTML</p>
-                    </div>
-                    <div>
-                        <h6 class="mb-2">$24,895.65</h6>
-                        <div class="progress bg-label-primary" style="height: 4px">
-                        <div
-                            class="progress-bar bg-primary"
-                            style="width: 75%"
-                            role="progressbar"
-                            aria-valuenow="75"
-                            aria-valuemin="0"
-                            aria-valuemax="100"></div>
+                @foreach ($stats['topcalcs'] as $item)
+                    <li class="d-flex mb-6">
+                        <div class="avatar flex-shrink-0 bg-lightest rounded me-3">
+                            @if($item->calculator->image)
+                            <img src="{{asset($item->calculator->image)}}" alt="{{ $item->calculator->title }}" />
+                            @endif
                         </div>
-                    </div>
-                    </div>
-                </li>
-                <li class="d-flex mb-6">
-                    <div class="avatar flex-shrink-0 bg-lightest rounded me-3">
-                    <img src="../assets/img/icons/misc/bitbank.png" alt="bitbank" />
-                    </div>
-                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                    <div class="me-2">
-                        <h6 class="mb-0">Bitbank</h6>
-                        <p class="mb-0">Sketch, Figma & XD</p>
-                    </div>
-                    <div>
-                        <h6 class="mb-2">$8,6500.20</h6>
-                        <div class="progress bg-label-info" style="height: 4px">
-                        <div
-                            class="progress-bar bg-info"
-                            style="width: 75%"
-                            role="progressbar"
-                            aria-valuenow="75"
-                            aria-valuemin="0"
-                            aria-valuemax="100"></div>
+                        <div class="d-flex w-100 flex-wrap flex-column gap-1">
+                        <div class="me-2">
+                            <h6 class="mb-0">{{ $item->calculator->title }}</h6>
+                            {{-- <p class="mb-0">Vuejs, React & HTML</p> --}}
                         </div>
-                    </div>
-                    </div>
-                </li>
-                <li class="d-flex">
-                    <div class="avatar flex-shrink-0 bg-lightest rounded me-3">
-                    <img src="../assets/img/icons/misc/aviato.png" alt="aviato" />
-                    </div>
-                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                    <div class="me-2">
-                        <h6 class="mb-0">Aviato</h6>
-                        <p class="mb-0">HTML & Angular</p>
-                    </div>
-                    <div>
-                        <h6 class="mb-2">$1,2450.80</h6>
-                        <div class="progress bg-label-secondary" style="height: 4px">
-                        <div
-                            class="progress-bar bg-secondary"
-                            style="width: 75%"
-                            role="progressbar"
-                            aria-valuenow="75"
-                            aria-valuemin="0"
-                            aria-valuemax="100"></div>
+                        <div>
+                            <h6 class="mb-2">{{$item->total_count}}</h6>
+                            {{-- <div class="progress bg-label-primary" style="height: 4px">
+                                <div
+                                    class="progress-bar bg-primary"
+                                    style="width: 75%"
+                                    role="progressbar"
+                                    aria-valuenow="75"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"></div>
+                                </div>
+                            </div> --}}
                         </div>
-                    </div>
-                    </div>
-                </li>
+                    </li>
+                @endforeach
                 </ul>
             </div>
             </div>
         </div>
         <!--/ Total Earnings -->
-
-        <!-- Four Cards -->
-        <div class="col-xl-4 col-md-6">
-            <div class="row gy-6">
-            <!-- Total Profit line chart -->
-            <div class="col-sm-6">
-                <div class="card h-100">
-                <div class="card-header pb-0">
-                    <h4 class="mb-0">$86.4k</h4>
-                </div>
-                <div class="card-body">
-                    <div id="totalProfitLineChart" class="mb-3"></div>
-                    <h6 class="text-center mb-0">Total Profit</h6>
-                </div>
-                </div>
-            </div>
-            <!--/ Total Profit line chart -->
-            <!-- Total Profit Weekly Project -->
-            <div class="col-sm-6">
-                <div class="card h-100">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <div class="avatar">
-                    <div class="avatar-initial bg-secondary rounded-circle shadow-xs">
-                        <i class="icon-base ri ri-pie-chart-2-line icon-24px"></i>
-                    </div>
-                    </div>
-                    <div class="dropdown">
-                    <button
-                        class="btn text-body-secondary p-0"
-                        type="button"
-                        id="totalProfitID"
-                        data-bs-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="icon-base ri ri-more-2-line icon-24px"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalProfitID">
-                        <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                        <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                        <a class="dropdown-item" href="javascript:void(0);">Update</a>
-                    </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h6 class="mb-1">Total Profit</h6>
-                    <div class="d-flex flex-wrap mb-1 align-items-center">
-                    <h4 class="mb-0 me-2">$25.6k</h4>
-                    <p class="text-success mb-0">+42%</p>
-                    </div>
-                    <small>Weekly Project</small>
-                </div>
-                </div>
-            </div>
-            <!--/ Total Profit Weekly Project -->
-            <!-- New Yearly Project -->
-            <div class="col-sm-6">
-                <div class="card h-100">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <div class="avatar">
-                    <div class="avatar-initial bg-primary rounded-circle shadow-xs">
-                        <i class="icon-base ri ri-file-word-2-line icon-24px"></i>
-                    </div>
-                    </div>
-                    <div class="dropdown">
-                    <button
-                        class="btn text-body-secondary p-0"
-                        type="button"
-                        id="newProjectID"
-                        data-bs-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="icon-base ri ri-more-2-line icon-24px"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="newProjectID">
-                        <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                        <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                        <a class="dropdown-item" href="javascript:void(0);">Update</a>
-                    </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <h6 class="mb-1">New Project</h6>
-                    <div class="d-flex flex-wrap mb-1 align-items-center">
-                    <h4 class="mb-0 me-2">862</h4>
-                    <p class="text-danger mb-0">-18%</p>
-                    </div>
-                    <small>Yearly Project</small>
-                </div>
-                </div>
-            </div>
-            <!--/ New Yearly Project -->
-            <!-- Sessions chart -->
-            <div class="col-sm-6">
-                <div class="card h-100">
-                <div class="card-header pb-0">
-                    <h4 class="mb-0">2,856</h4>
-                </div>
-                <div class="card-body">
-                    <div id="sessionsColumnChart" class="mb-3"></div>
-                    <h6 class="text-center mb-0">Sessions</h6>
-                </div>
-                </div>
-            </div>
-            <!--/ Sessions chart -->
-            </div>
-        </div>
-        <!--/ four cards -->
 
         <!-- Sales by Countries -->
         <div class="col-xl-4 col-md-6">
@@ -486,6 +346,113 @@
             </div>
         </div>
         <!--/ Sales by Countries -->
+        @if(1 == 0)
+        <!-- Four Cards -->
+        <div class="col-xl-4 col-md-6">
+            <div class="row gy-6">
+            <!-- Total Profit line chart -->
+            <div class="col-sm-6">
+                <div class="card h-100">
+                <div class="card-header pb-0">
+                    <h4 class="mb-0">$86.4k</h4>
+                </div>
+                <div class="card-body">
+                    <div id="totalProfitLineChart" class="mb-3"></div>
+                    <h6 class="text-center mb-0">Total Profit</h6>
+                </div>
+                </div>
+            </div>
+            <!--/ Total Profit line chart -->
+            <!-- Total Profit Weekly Project -->
+            <div class="col-sm-6">
+                <div class="card h-100">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <div class="avatar">
+                    <div class="avatar-initial bg-secondary rounded-circle shadow-xs">
+                        <i class="icon-base ri ri-pie-chart-2-line icon-24px"></i>
+                    </div>
+                    </div>
+                    <div class="dropdown">
+                    <button
+                        class="btn text-body-secondary p-0"
+                        type="button"
+                        id="totalProfitID"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="icon-base ri ri-more-2-line icon-24px"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalProfitID">
+                        <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Share</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Update</a>
+                    </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="mb-1">Total Profit</h6>
+                    <div class="d-flex flex-wrap mb-1 align-items-center">
+                    <h4 class="mb-0 me-2">$25.6k</h4>
+                    <p class="text-success mb-0">+42%</p>
+                    </div>
+                    <small>Weekly Project</small>
+                </div>
+                </div>
+            </div>
+            <!--/ Total Profit Weekly Project -->
+            <!-- New Yearly Project -->
+            <div class="col-sm-6">
+                <div class="card h-100">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <div class="avatar">
+                    <div class="avatar-initial bg-primary rounded-circle shadow-xs">
+                        <i class="icon-base ri ri-file-word-2-line icon-24px"></i>
+                    </div>
+                    </div>
+                    <div class="dropdown">
+                    <button
+                        class="btn text-body-secondary p-0"
+                        type="button"
+                        id="newProjectID"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="icon-base ri ri-more-2-line icon-24px"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="newProjectID">
+                        <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Share</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Update</a>
+                    </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 class="mb-1">New Project</h6>
+                    <div class="d-flex flex-wrap mb-1 align-items-center">
+                    <h4 class="mb-0 me-2">862</h4>
+                    <p class="text-danger mb-0">-18%</p>
+                    </div>
+                    <small>Yearly Project</small>
+                </div>
+                </div>
+            </div>
+            <!--/ New Yearly Project -->
+            <!-- Sessions chart -->
+            <div class="col-sm-6">
+                <div class="card h-100">
+                <div class="card-header pb-0">
+                    <h4 class="mb-0">2,856</h4>
+                </div>
+                <div class="card-body">
+                    <div id="sessionsColumnChart" class="mb-3"></div>
+                    <h6 class="text-center mb-0">Sessions</h6>
+                </div>
+                </div>
+            </div>
+            <!--/ Sessions chart -->
+            </div>
+        </div>
+        <!--/ four cards -->
 
         <!-- Deposit / Withdraw -->
         <div class="col-xl-8">
@@ -687,191 +654,72 @@
             </div>
         </div>
         <!-- Deposit / Withdraw -->
+        @endif
 
         <!-- Data Tables -->
         <div class="col-12">
-            <div class="card overflow-hidden">
+            <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="card-title m-0 me-2">Recent Visitors</h5>
+            </div>
+            <div class="card-body pt-lg-8">
+            @if(isset($stats['recentVisitors']) && count($stats['recentVisitors']) > 0)
             <div class="table-responsive">
                 <table class="table table-sm">
                 <thead>
                     <tr>
-                    <th class="text-truncate">User</th>
-                    <th class="text-truncate">Email</th>
-                    <th class="text-truncate">Role</th>
-                    <th class="text-truncate">Status</th>
+                    <th class="text-truncate">UUID / User Agent</th>
+                    <th class="text-truncate">IP Address</th>
+                    <th class="text-truncate">City / County</th>
+                    <th class="text-truncate">Total Activity</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($stats['recentVisitors'] as $item)
                     <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                        <div class="avatar avatar-sm me-4">
-                            <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                        </div>
-                        <div>
-                            <h6 class="mb-0 text-truncate">Jordan Stevenson</h6>
-                            <small class="text-truncate">@amiccoo</small>
-                        </div>
-                        </div>
-                    </td>
-                    <td class="text-truncate">susanna.Lind57@gmail.com</td>
-                    <td class="text-truncate">
-                        <div class="d-flex align-items-center">
-                        <i class="icon-base ri ri-vip-crown-line icon-22px text-primary me-2"></i>
-                        <span>Admin</span>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-label-warning rounded-pill">Pending</span></td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                            <div class="avatar avatar-sm me-4">
+                                <img src="{{asset('assets/img/avatars/1.png')}}" alt="Avatar" class="rounded-circle" />
+                            </div>
+                            <div>
+                                <h6 class="mb-0 text-truncate">{{$item->visitor_uuid}}</h6>
+                                <small class="text-truncate">
+                                    {{strlen($item->user_agent) > 30 ? substr($item->user_agent,0,30) : $item->user_agent}}
+                                    @if(strlen($item->user_agent) > 30)
+                                        <button
+                                            type="button"
+                                            class="btn btn-xs rounded-pill btn-icon btn-outline-secondary border-none shadow waves-effect"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="{{$item->user_agent}}">
+                                            <span class="icon-base ri ri-info-i icon-12px"></span>
+                                        </button>
+                                    @endif
+                                </small>
+                            </div>
+                            </div>
+                        </td>
+                        <td class="text-truncate">{{ $item->ip }}</td>
+                        <td class="text-truncate">
+                            <div class="d-flex align-items-center flex-column">
+                            {{-- <i class="icon-base ri ri-vip-crown-line icon-22px text-primary me-2"></i> --}}
+                            <span>{{ $item->city ?? '' }}</span>
+                            <span class="text-primary">{{ $item->country ?? '--NIL--' }}</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-label-success rounded-pill">{{ count($item->activity) }}</span></td>
                     </tr>
-                    <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                        <div class="avatar avatar-sm me-4">
-                            <img src="../assets/img/avatars/3.png" alt="Avatar" class="rounded-circle" />
-                        </div>
-                        <div>
-                            <h6 class="mb-0 text-truncate">Benedetto Rossiter</h6>
-                            <small class="text-truncate">@brossiter15</small>
-                        </div>
-                        </div>
-                    </td>
-                    <td class="text-truncate">estelle.Bailey10@gmail.com</td>
-                    <td class="text-truncate">
-                        <div class="d-flex align-items-center">
-                        <i class="icon-base ri ri-edit-box-line text-warning icon-22px me-2"></i>
-                        <span>Editor</span>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-label-success rounded-pill">Active</span></td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                        <div class="avatar avatar-sm me-4">
-                            <img src="../assets/img/avatars/2.png" alt="Avatar" class="rounded-circle" />
-                        </div>
-                        <div>
-                            <h6 class="mb-0 text-truncate">Bentlee Emblin</h6>
-                            <small class="text-truncate">@bemblinf</small>
-                        </div>
-                        </div>
-                    </td>
-                    <td class="text-truncate">milo86@hotmail.com</td>
-                    <td class="text-truncate">
-                        <div class="d-flex align-items-center">
-                        <i class="icon-base ri ri-computer-line text-danger icon-22px me-2"></i>
-                        <span>Author</span>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-label-success rounded-pill">Active</span></td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                        <div class="avatar avatar-sm me-4">
-                            <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                        </div>
-                        <div>
-                            <h6 class="mb-0 text-truncate">Bertha Biner</h6>
-                            <small class="text-truncate">@bbinerh</small>
-                        </div>
-                        </div>
-                    </td>
-                    <td class="text-truncate">lonnie35@hotmail.com</td>
-                    <td class="text-truncate">
-                        <div class="d-flex align-items-center">
-                        <i class="icon-base ri ri-edit-box-line text-warning icon-22px me-2"></i>
-                        <span>Editor</span>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-label-warning rounded-pill">Pending</span></td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                        <div class="avatar avatar-sm me-4">
-                            <img src="../assets/img/avatars/4.png" alt="Avatar" class="rounded-circle" />
-                        </div>
-                        <div>
-                            <h6 class="mb-0 text-truncate">Beverlie Krabbe</h6>
-                            <small class="text-truncate">@bkrabbe1d</small>
-                        </div>
-                        </div>
-                    </td>
-                    <td class="text-truncate">ahmad_Collins@yahoo.com</td>
-                    <td class="text-truncate">
-                        <div class="d-flex align-items-center">
-                        <i class="icon-base ri ri-pie-chart-2-line icon-22px text-info me-2"></i>
-                        <span>Maintainer</span>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-label-success rounded-pill">Active</span></td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                        <div class="avatar avatar-sm me-4">
-                            <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                        </div>
-                        <div>
-                            <h6 class="mb-0 text-truncate">Bradan Rosebotham</h6>
-                            <small class="text-truncate">@brosebothamz</small>
-                        </div>
-                        </div>
-                    </td>
-                    <td class="text-truncate">tillman.Gleason68@hotmail.com</td>
-                    <td class="text-truncate">
-                        <div class="d-flex align-items-center">
-                        <i class="icon-base ri ri-edit-box-line text-warning icon-22px me-2"></i>
-                        <span>Editor</span>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-label-warning rounded-pill">Pending</span></td>
-                    </tr>
-                    <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                        <div class="avatar avatar-sm me-4">
-                            <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                        </div>
-                        <div>
-                            <h6 class="mb-0 text-truncate">Bree Kilday</h6>
-                            <small class="text-truncate">@bkildayr</small>
-                        </div>
-                        </div>
-                    </td>
-                    <td class="text-truncate">otho21@gmail.com</td>
-                    <td class="text-truncate">
-                        <div class="d-flex align-items-center">
-                        <i class="icon-base ri ri-user-3-line icon-22px text-success me-2"></i>
-                        <span>Subscriber</span>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-label-success rounded-pill">Active</span></td>
-                    </tr>
-                    <tr class="border-transparent">
-                    <td>
-                        <div class="d-flex align-items-center">
-                        <div class="avatar avatar-sm me-4">
-                            <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
-                        </div>
-                        <div>
-                            <h6 class="mb-0 text-truncate">Breena Gallemore</h6>
-                            <small class="text-truncate">@bgallemore6</small>
-                        </div>
-                        </div>
-                    </td>
-                    <td class="text-truncate">florencio.Little@hotmail.com</td>
-                    <td class="text-truncate">
-                        <div class="d-flex align-items-center">
-                        <i class="icon-base ri ri-user-3-line icon-22px text-success me-2"></i>
-                        <span>Subscriber</span>
-                        </div>
-                    </td>
-                    <td><span class="badge bg-label-secondary rounded-pill">Inactive</span></td>
-                    </tr>
+                    @endforeach
                 </tbody>
                 </table>
+            </div>
+            @else
+            <div class="py-4 px-3 text-center">
+                <h4 class="text-primary mb-0">No New Visitors</h4>
+                <p class="mb-2">No visitors found for this month</p>
+            </div>
+            @endif
             </div>
             </div>
         </div>
@@ -880,3 +728,12 @@
     </div>
     <!-- / Content -->
 @endsection
+@push('scripts')
+<script>
+    let weeklyOverviewData = @js($stats['weeklyOverview']);
+    const weeklyOverviewLabels = weeklyOverviewData.map(item => item.week);
+    const weeklyOverviewValues = weeklyOverviewData.map(item => item.count);
+    console.log(config.colors);
+</script>
+<script src="{{asset('assets/js/dashboards-analytics.js')}}?v=0.2"></script>
+@endpush
