@@ -28,13 +28,16 @@ class HomeController extends Controller
             {
             //   $content->value = $this->saveImage($value); 
             dd([
-                'has_file' => $request->hasFile($key),
-                'file' => $request->file($key),
-                'error' => $request->file($key)?->getError(),
-                'error_message' => $request->file($key)?->getErrorMessage(),
-                'size' => $request->file($key)?->getSize(),
-                'mime' => $request->file($key)?->getMimeType(),
-            ]);  
+    'php_user' => posix_getpwuid(posix_geteuid())['name'] ?? posix_geteuid(),
+    'file_error' => $file->getError(),
+    'is_valid' => $file->isValid(),
+    'is_uploaded_file' => is_uploaded_file($file->getPathname()),
+    'tmp_file' => $file->getPathname(),
+    'tmp_exists' => file_exists($file->getPathname()),
+    'uploads_path' => public_path('uploads'),
+    'uploads_exists' => is_dir(public_path('uploads')),
+    'uploads_writable' => is_writable(public_path('uploads')),
+]);
             }
             else{
                 $content->value = $value ?? '';
