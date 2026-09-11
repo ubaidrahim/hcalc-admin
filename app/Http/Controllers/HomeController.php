@@ -26,25 +26,7 @@ class HomeController extends Controller
             }
             if($request->hasFile($key))
             {
-            //   $content->value = $this->saveImage($value); 
-            $file = $request->file($key);
-
-$destination = public_path('uploads/test');
-
-if (!is_dir($destination)) {
-    mkdir($destination, 0777, true);
-}
-
-$filename = 'test_' . time() . '.' . $file->extension();
-
-$moved = $file->move($destination, $filename);
-
-dd([
-    'destination' => $destination,
-    'filename' => $filename,
-    'moved_path' => $moved->getPathname(),
-    'exists' => file_exists($destination . '/' . $filename),
-]);
+              $content->value = $this->saveImage($value); 
             }
             else{
                 $content->value = $value ?? '';
