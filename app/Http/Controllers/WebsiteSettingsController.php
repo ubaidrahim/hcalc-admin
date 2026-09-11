@@ -53,6 +53,7 @@ class WebsiteSettingsController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
+        dd($data);
         foreach ($data as $key => $value) {
             $content = WebsiteSetting::where('key',$key)->first();
             if(!$content)
