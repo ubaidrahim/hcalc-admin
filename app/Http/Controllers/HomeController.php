@@ -26,6 +26,7 @@ class HomeController extends Controller
             }
             if($request->hasFile($key))
             {
+                $file = $request->file($key);
             //   $content->value = $this->saveImage($value); 
             dd([
     'php_user' => posix_getpwuid(posix_geteuid())['name'] ?? posix_geteuid(),
