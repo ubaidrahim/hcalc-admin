@@ -26,18 +26,24 @@ class HomeController extends Controller
             }
             if($request->hasFile($key))
             {
-                $file = $request->file($key);
             //   $content->value = $this->saveImage($value); 
-            dd([
-    'php_user' => posix_getpwuid(posix_geteuid())['name'] ?? posix_geteuid(),
-    'file_error' => $file->getError(),
-    'is_valid' => $file->isValid(),
-    'is_uploaded_file' => is_uploaded_file($file->getPathname()),
-    'tmp_file' => $file->getPathname(),
-    'tmp_exists' => file_exists($file->getPathname()),
-    'uploads_path' => public_path('uploads'),
-    'uploads_exists' => is_dir(public_path('uploads')),
-    'uploads_writable' => is_writable(public_path('uploads')),
+            $file = $request->file($key);
+
+$destination = public_path('uploads/test');
+
+if (!is_dir($destination)) {
+    mkdir($destination, 0777, true);
+}
+
+$filename = 'test_' . time() . '.' . $file->extension();
+
+$moved = $file->move($destination, $filename);
+
+dd([
+    'destination' => $destination,
+    'filename' => $filename,
+    'moved_path' => $moved->getPathname(),
+    'exists' => file_exists($destination . '/' . $filename),
 ]);
             }
             else{
