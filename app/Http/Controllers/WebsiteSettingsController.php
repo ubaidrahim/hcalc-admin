@@ -53,7 +53,6 @@ class WebsiteSettingsController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
-        dd($data);
         foreach ($data as $key => $value) {
             $content = WebsiteSetting::where('key',$key)->first();
             if(!$content)
@@ -63,15 +62,7 @@ class WebsiteSettingsController extends Controller
             }
             if($request->hasFile($key))
             {
-            //   $content->value = $this->saveImage($value); 
-            dd([
-                'has_file' => $request->hasFile($key),
-                'file' => $request->file($key),
-                'error' => $request->file($key)?->getError(),
-                'error_message' => $request->file($key)?->getErrorMessage(),
-                'size' => $request->file($key)?->getSize(),
-                'mime' => $request->file($key)?->getMimeType(),
-            ]); 
+              $content->value = $this->saveImage($value); 
             }
             else{
                 $content->value = $value ?? '';
