@@ -62,7 +62,15 @@ class WebsiteSettingsController extends Controller
             }
             if($request->hasFile($key))
             {
-              $content->value = $this->saveImage($value);  
+            //   $content->value = $this->saveImage($value); 
+            dd([
+                'has_file' => $request->hasFile($key),
+                'file' => $request->file($key),
+                'error' => $request->file($key)?->getError(),
+                'error_message' => $request->file($key)?->getErrorMessage(),
+                'size' => $request->file($key)?->getSize(),
+                'mime' => $request->file($key)?->getMimeType(),
+            ]); 
             }
             else{
                 $content->value = $value ?? '';
