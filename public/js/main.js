@@ -382,6 +382,12 @@ $('.select2').each(function () {
         options.dropdownParent = $el.closest('.modal');
     }
 
+    // .modal is the scrolling element and select2 doesn't account for its scrollTop,
+    // so attach to .modal-content instead to keep the dropdown aligned when scrolled
+    if (options.dropdownParent && options.dropdownParent.is('.modal')) {
+        options.dropdownParent = options.dropdownParent.find('.modal-content').first();
+    }
+
     $el.select2(options);
 });
 
