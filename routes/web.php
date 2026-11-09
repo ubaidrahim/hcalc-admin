@@ -54,6 +54,12 @@ Route::middleware('auth')->group(function () {
             Route::post('update-images', [App\Http\Controllers\WebsiteSettingsController::class,'updateImages'])->name('updateImages');
             Route::post('remove-setting', [App\Http\Controllers\WebsiteSettingsController::class,'removeSetting'])->name('removeSetting');
         });
+
+        Route::resource('/admin', App\Http\Controllers\AdminSettingsController::class);
+        Route::post('/admin/{id}', [App\Http\Controllers\AdminSettingsController::class,'update'])->name('admin.update');
+        Route::get('/admins/listAll', [App\Http\Controllers\AdminSettingsController::class,'listAll'])->name('admin.listAll');
+        Route::post('/admins/change-password', [App\Http\Controllers\AdminSettingsController::class,'changePassword'])->name('admin.changepassword');
+        
         Route::group(['prefix' => 'menu', 'as' => 'menu.'],function () {
             Route::get('/{menu?}', [App\Http\Controllers\MenuSettingsController::class, 'index'])->name('index');
             Route::post('/add-item', [App\Http\Controllers\MenuSettingsController::class, 'addItem'])->name('add');

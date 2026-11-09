@@ -119,7 +119,9 @@ class TeamController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $team = OurTeam::find($id);
+        $team->delete();
+        return response()->json(['success' => true, 'data' => $team]);
     }
 
     public function listAll(Request $request)

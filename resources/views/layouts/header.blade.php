@@ -31,7 +31,7 @@
                     href="javascript:void(0);"
                     data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="{{asset('assets/img/avatars/1.png')}}" alt="alt" class="rounded-circle" />
+                      <img src="{{asset(auth()->user()->image ? auth()->user()->image : 'assets/img/illustrations/blank.png')}}" alt="alt" class="rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -40,12 +40,12 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt="alt" class="w-px-40 h-auto rounded-circle" />
+                              <img src="{{asset(auth()->user()->image ? auth()->user()->image : 'assets/img/illustrations/blank.png')}}" alt="alt" class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
                             <h6 class="mb-0">{{auth()->user()->name}}</h6>
-                            <small class="text-body-secondary">Admin</small>
+                            <small class="text-body-secondary">{{auth()->user()->designation ? auth()->user()->designation : 'Admin'}}</small>
                           </div>
                         </div>
                       </a>
