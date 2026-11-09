@@ -111,9 +111,9 @@
                 <div data-i18n="Calculators">Website Settings</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item {{ request()->routeIs('settings.website.index') ? 'active' : '' }}">
                    <a class="menu-link"
-                    href="#">
+                    href="{{ route('settings.website.index') }}">
                        General Settings
                    </a>
                  </li>
@@ -127,6 +127,20 @@
                    <a class="menu-link"
                     href="{{ route('sitescripts.index') }}">
                        Site Scripts
+                   </a>
+                 </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon icon-base ri ri-home-smile-line"></i>
+                <div data-i18n="Calculators">Admin Settings</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item {{ request()->routeIs('settings.admin.index') ? 'active' : '' }}">
+                   <a class="menu-link"
+                    href="{{ route('settings.admin.index') }}">
+                       Manage Accounts
                    </a>
                  </li>
               </ul>
